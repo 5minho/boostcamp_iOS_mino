@@ -1,1 +1,1 @@
-# boostcamp_iOS_mino
+# boostcamp 개인과제 repo
