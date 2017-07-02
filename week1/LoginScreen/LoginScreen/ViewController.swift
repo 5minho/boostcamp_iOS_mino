@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         print("touch up inside - sign in")
         print("ID : " + id + ", PW : " + pw)
     }
+    
     @IBAction func signUp(_ sender: UIButton) {
         print("touch up inside - sign up")
     }
