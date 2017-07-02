@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="BIU-5y-g6r">
             <objects>
-                <viewController id="SaY-I1-vh4" sceneMemberID="viewController">
+                <viewController id="SaY-I1-vh4" customClass="ViewController" customModule="LoginScreen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O8l-Ci-u4Y"/>
                         <viewControllerLayoutGuide type="bottom" id="aBv-32-QaU"/>
@@ -26,10 +26,10 @@
                                 <rect key="frame" x="48" y="52" width="279" height="335"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="t6w-0w-K69">
-                                        <rect key="frame" x="0.0" y="0.0" width="279" height="211.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="202"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="wcl-xx-Q03">
-                                        <rect key="frame" x="0.0" y="229.5" width="279" height="67"/>
+                                        <rect key="frame" x="0.0" y="220" width="279" height="67"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hCS-YD-F3t">
                                                 <rect key="frame" x="0.0" y="0.0" width="279" height="30"/>
@@ -41,25 +41,29 @@
                                                 <rect key="frame" x="0.0" y="37" width="279" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9yD-mp-CKz">
-                                        <rect key="frame" x="0.0" y="314.5" width="279" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="305" width="279" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaA-nA-urD">
-                                                <rect key="frame" x="0.0" y="0.0" width="139.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6z-eD-5Lk">
-                                                <rect key="frame" x="139.5" y="0.0" width="139.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHH-L9-a76">
+                                                <rect key="frame" x="0.0" y="0.0" width="139.5" height="30"/>
+                                                <state key="normal" title="Sign In"/>
+                                                <connections>
+                                                    <action selector="signIn:" destination="SaY-I1-vh4" eventType="touchUpInside" id="jIJ-hd-Yky"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtM-Sg-39i">
+                                                <rect key="frame" x="139.5" y="0.0" width="139.5" height="30"/>
+                                                <state key="normal" title="Sign Up">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signUp:" destination="SaY-I1-vh4" eventType="touchUpInside" id="Lm7-Km-kXC"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -73,6 +77,10 @@
                             <constraint firstItem="x99-hS-8JZ" firstAttribute="leading" secondItem="JMS-8r-otA" secondAttribute="leadingMargin" constant="32" id="xLO-xL-jg8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="txtID" destination="hCS-YD-F3t" id="YYX-WC-YwY"/>
+                        <outlet property="txtPassword" destination="j0Q-ez-8kU" id="yjV-p9-b0j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4r-ul-8sV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
