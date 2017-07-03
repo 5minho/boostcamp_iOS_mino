@@ -42,7 +42,7 @@
                                                 <rect key="frame" x="0.0" y="37" width="274" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -71,12 +71,16 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="x99-hS-8JZ" firstAttribute="top" secondItem="O8l-Ci-u4Y" secondAttribute="bottom" constant="32" id="BQj-dk-oBK"/>
                             <constraint firstItem="aBv-32-QaU" firstAttribute="top" secondItem="x99-hS-8JZ" secondAttribute="bottom" priority="250" constant="200" id="d0j-Xb-tlb"/>
                             <constraint firstItem="x99-hS-8JZ" firstAttribute="leading" secondItem="JMS-8r-otA" secondAttribute="leadingMargin" constant="50" id="fEL-zd-c7P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x99-hS-8JZ" secondAttribute="trailing" constant="50" id="lvx-4k-AEn"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="GkU-fb-Qu4" appends="YES" id="lXI-BZ-Pqd"/>
+                        </connections>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="736" height="414"/>
                     <connections>
@@ -85,6 +89,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4r-ul-8sV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GkU-fb-Qu4">
+                    <connections>
+                        <action selector="dismissKeyboardWith_sender:" destination="SaY-I1-vh4" id="Y6X-gL-cfT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="913.04347826086962" y="113.31521739130436"/>
         </scene>
