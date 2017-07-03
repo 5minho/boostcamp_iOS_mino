@@ -13,7 +13,6 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var celsiusLabel: UILabel!
     
-    let validChracterSet = ".-+1234567890"
     
     let numberFormatter: NumberFormatter = {
         let nf = NumberFormatter()
@@ -45,21 +44,13 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 백스페이스, 소숫점, 처리 해주면 될거 같다.
+        if(string.range(of: "^[0-9]+$", options: .regularExpression) == nil) {return false}
         let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
         let replacementTextHasDecimalSeparator = string.range(of: ".")
         
         return !(existingTextHasDecimalSeparator != nil && replacementTextHasDecimalSeparator != nil)
     }
-    
-    
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        print("textFieldShouldBeginEditing")
-//        return true
-//    }
-//    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        print("textFieldDidBeginEditing")
-//    }
     
     override func viewDidLoad() {
         print("ConversionViewController loaded its view.")
