@@ -13,6 +13,8 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var celsiusLabel: UILabel!
     
+    let validChracterSet = ".-+1234567890"
+    
     let numberFormatter: NumberFormatter = {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
@@ -49,11 +51,18 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
         return !(existingTextHasDecimalSeparator != nil && replacementTextHasDecimalSeparator != nil)
     }
     
-    override func viewDidLoad() {
-        textField.delegate = self;
-    }
+    
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        print("textFieldShouldBeginEditing")
+//        return true
+//    }
+//    
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        print("textFieldDidBeginEditing")
+//    }
     
     @IBAction func fahrenheitFieldEditingChanged(_ sender: UITextField) {
+        
         if let text = textField.text, let value = Double(text) {
             fahrenheitValue = value
         } else {

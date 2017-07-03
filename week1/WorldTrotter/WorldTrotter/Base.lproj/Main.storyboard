@@ -56,6 +56,7 @@
                                 <connections>
                                     <action selector="dismissKeyboard:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="L1o-7q-8rj"/>
                                     <action selector="fahrenheitFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="lP5-Y8-dhN"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="TVX-D8-uAg"/>
                                 </connections>
                             </textField>
                         </subviews>
