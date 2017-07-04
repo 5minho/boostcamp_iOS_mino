@@ -45,7 +45,7 @@
                                 <color key="textColor" red="0.88235294117647056" green="0.34509803921568627" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TaR-qG-fjV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TaR-qG-fjV" customClass="UnablePasteUITextFeild" customModule="WorldTrotter" customModuleProvider="target">
                                 <rect key="frame" x="63" y="28" width="250" height="84"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="D3c-6A-hBc"/>
@@ -93,6 +93,25 @@
             </objects>
             <point key="canvasLocation" x="1848.8" y="866.71664167916049"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="C7M-lS-rKd">
+            <objects>
+                <viewController id="akX-us-phT" customClass="WebViewController" customModule="WorldTrotter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kvb-rj-Jw7"/>
+                        <viewControllerLayoutGuide type="bottom" id="RvB-ZB-J84"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gZk-gQ-Nbo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="FqN-Ni-TVS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="emL-4Q-a6l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2786" y="477"/>
+        </scene>
         <!--Map-->
         <scene sceneID="5NB-2d-nb3">
             <objects>
@@ -116,6 +135,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0Oz-Gb-GX2"/>
                         <segue destination="Dzr-Ja-jZK" kind="relationship" relationship="viewControllers" id="7OC-om-MHU"/>
+                        <segue destination="akX-us-phT" kind="relationship" relationship="viewControllers" id="TfJ-5C-AH4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nzc-d8-jbg" userLabel="First Responder" sceneMemberID="firstResponder"/>

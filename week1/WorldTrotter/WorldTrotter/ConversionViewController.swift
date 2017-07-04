@@ -10,6 +10,15 @@ import UIKit
 
 // 입력값 유효성 체커
 // 4장 동메달 과제 : 알파벳 문자 허용하지 않기
+
+class UnablePasteUITextFeild : UITextField {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(paste(_:)) {
+            return false
+        }
+        return true
+    }
+}
 class VaildChracterSetCheker {
     var validChracterSet : CharacterSet
     
@@ -98,6 +107,4 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     @IBAction func dismissKeyboard(_ sender: Any) {
         textField.resignFirstResponder()
     }
-    
-    
 }
