@@ -8,11 +8,26 @@
 
 import UIKit
 
+// 입력값 유효성 체커
+// 4장 동메달 과제 : 알파벳 문자 허용하지 않기
+class VaildChracterSetCheker {
+    var validChracterSet : CharacterSet
+    
+    init(from characterSet : CharacterSet) {
+        self.validChracterSet = characterSet
+    }
+    
+    func check (target string : String) -> Bool {
+        return !string.isEmpty && (string.rangeOfCharacter(from: self.validChracterSet) == nil)
+    }
+}
+
 class ConversionViewController : UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var celsiusLabel: UILabel!
     
+    let validChracterSetCheker = VaildChracterSetCheker(from: CharacterSet(charactersIn : ".1234567890"))
     
     let numberFormatter: NumberFormatter = {
         let nf = NumberFormatter()
@@ -44,18 +59,31 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 숫자, 백스페이스, 소숫점이 아니면 리턴 false
-        let validChracterSet = CharacterSet(charactersIn : ".1234567890")
-        if !string.isEmpty && string.rangeOfCharacter(from: validChracterSet) == nil { return false }
+        // 4장 동메달 과제 : 알파벳 문자 허용하지 않기
+        if validChracterSetCheker.check(target: string) { return false }
+        //
         
         let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
         let replacementTextHasDecimalSeparator = string.range(of: ".")
-        
         return !(existingTextHasDecimalSeparator != nil && replacementTextHasDecimalSeparator != nil)
     }
     
     override func viewDidLoad() {
         print("ConversionViewController loaded its view.")
+    }
+    
+    
+    // 5장 은메달 과제 : 다크모드
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        //현재 시간
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        print(currentHour)
+        if currentHour > 8 && currentHour < 20 {
+            view.backgroundColor = UIColor.yellow
+        } else {
+            view.backgroundColor = UIColor.darkGray
+        }
     }
     
     @IBAction func fahrenheitFieldEditingChanged(_ sender: UITextField) {
