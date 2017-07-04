@@ -44,8 +44,10 @@ class ConversionViewController : UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 백스페이스, 소숫점, 처리 해주면 될거 같다.
-        if(string.range(of: "^[0-9]+$", options: .regularExpression) == nil) {return false}
+        // 숫자, 백스페이스, 소숫점이 아니면 리턴 false
+        let validChracterSet = CharacterSet(charactersIn : ".1234567890")
+        if !string.isEmpty && string.rangeOfCharacter(from: validChracterSet) == nil { return false }
+        
         let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
         let replacementTextHasDecimalSeparator = string.range(of: ".")
         
