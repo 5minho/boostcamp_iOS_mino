@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A275E7E1F0F520F00B03BEA /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A275E7D1F0F520F00B03BEA /* RatingControl.swift */; };
 		5A553C6E1F0959C90070AFE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A553C6D1F0959C90070AFE3 /* AppDelegate.swift */; };
 		5A553C701F0959C90070AFE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A553C6F1F0959C90070AFE3 /* ViewController.swift */; };
 		5A553C731F0959C90070AFE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A553C711F0959C90070AFE3 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A275E7D1F0F520F00B03BEA /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		5A553C6A1F0959C90070AFE3 /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A553C6D1F0959C90070AFE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A553C6F1F0959C90070AFE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				5A553C6D1F0959C90070AFE3 /* AppDelegate.swift */,
 				5A553C6F1F0959C90070AFE3 /* ViewController.swift */,
 				5A553C711F0959C90070AFE3 /* Main.storyboard */,
+				5A275E7D1F0F520F00B03BEA /* RatingControl.swift */,
 				5A553C741F0959C90070AFE3 /* Assets.xcassets */,
 				5A553C761F0959C90070AFE3 /* LaunchScreen.storyboard */,
 				5A553C791F0959C90070AFE3 /* Info.plist */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A553C701F0959C90070AFE3 /* ViewController.swift in Sources */,
+				5A275E7E1F0F520F00B03BEA /* RatingControl.swift in Sources */,
 				5A553C6E1F0959C90070AFE3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +306,7 @@
 				5A553C7E1F0959C90070AFE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

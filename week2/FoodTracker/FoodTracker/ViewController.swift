@@ -14,6 +14,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var mealNameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     
     override func viewDidLoad() {
@@ -36,9 +37,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func setDefaultLabel(_ sender: UIButton) {
-        mealNameLabel.text = "Default Label"
-    }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         nameTextField.resignFirstResponder()
@@ -61,5 +59,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         photoImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
