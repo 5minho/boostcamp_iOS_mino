@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     //Mark : Properties
     
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         setUpImageView()
         setUpTextField()
         setUpButton()
-        
         
         view.addSubview(profileImageView)
         view.addSubview(idTextField)
@@ -69,6 +68,7 @@ class ViewController: UIViewController {
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(UIColor.red, for: .normal)
         cancelButton.setTitleColor(UIColor.white, for: .highlighted)
+        cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(UIColor.blue, for: .normal)
@@ -130,6 +130,10 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func cancel(_ button: UIButton) {
+        presentingViewController?.dismiss(animated: true)
     }
 }
 
