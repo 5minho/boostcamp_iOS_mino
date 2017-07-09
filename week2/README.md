@@ -32,3 +32,10 @@ MVC 패턴으로 디자인된 App의 객체는 model, view, controller 중 하�
   * 유용한 XCTest 메서드와 실무에서 어떤식으로 UnitTest를 하는지
 
 ***
+  - [ ] Sign Up Page 구성하기
+  constraint를 정의하기전에 superview의 addSubView메서드를 수행하자
+* 궁금한 점
+  * View.bounds와 View.frame의 차이점, 관계
+    * bounds는 자기 자신 좌표계에서 view의 크기를 나타낸다
+    * frame은 superview의 좌표계에서 view의 크기와 위치를 나타낸다.
+***
