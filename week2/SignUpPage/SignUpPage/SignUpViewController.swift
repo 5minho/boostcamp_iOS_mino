@@ -24,6 +24,7 @@ class SignUpViewController: UIViewController {
         super.loadView()
         
         //Mark : Create components
+        
         profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
@@ -48,13 +49,12 @@ class SignUpViewController: UIViewController {
     }
     
     
-    
-    func setUpImageView() {
+    private func setUpImageView() {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.backgroundColor = UIColor.black
     }
     
-    func setUpTextField() {
+    private func setUpTextField() {
         idTextField.placeholder = "ID"
         idTextField.borderStyle = .roundedRect
         passwordTextField.placeholder = "Password"
@@ -63,7 +63,7 @@ class SignUpViewController: UIViewController {
         checkPasswordTextField.borderStyle = .roundedRect
     }
     
-    func setUpButton() {
+    private func setUpButton() {
         cancelButton.isEnabled = true
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(UIColor.red, for: .normal)
@@ -75,7 +75,7 @@ class SignUpViewController: UIViewController {
         signUpButton.setTitleColor(UIColor.white, for: .highlighted)
     }
     
-    func createConstraint() {
+    private func createConstraint() {
         let space : CGFloat = 8.0
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
