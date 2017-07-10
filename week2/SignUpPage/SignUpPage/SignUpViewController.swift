@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate
+, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //Mark : Properties
     
@@ -57,7 +58,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     
     func selectProfileImageFromPhotoLibrary(gestureRecognizer: UIGestureRecognizer) {
-            print("selectProfileImageFromPhotoLibrary")
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        //기기에 카메라가 있으면 사진을 찍는다
+        //아니면 사진 라이브러리에서 사진을 고른다
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.delegate = self
+        view.endEditing(true)
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let profileImage = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        profileImageView.image = profileImage
+        dismiss(animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -130,7 +152,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space).isActive = true
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: space).isActive = true
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier : 1/3, constant : 0).isActive = true
+        profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier : 0.29, constant : 0).isActive = true
         
         idTextField.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
         idTextField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: space).isActive = true
