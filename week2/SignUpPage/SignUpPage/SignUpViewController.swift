@@ -11,8 +11,7 @@ import UIKit
 class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate
 , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    //Mark : Properties
-    
+    //MARK: Properties
     var profileImageView : UIImageView!
     var idTextField : UITextField!
     var passwordTextField : UITextField!
@@ -20,7 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var profileTextView : UITextView!
     var cancelButton : UIButton!
     var signUpButton : UIButton!
-    
+    //MARK: - View life cycle
     override func loadView() {
         super.loadView()
         
@@ -49,14 +48,39 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         backgroundTapped.numberOfTapsRequired = 1
         view.addGestureRecognizer(backgroundTapped)
         
-        setTranslatesAutoresizingMaskIntoConstraints()
         createConstraint()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    //MARK: - backgroundTap     
     func dismissKeyBoard(gestureRecognizer: UIGestureRecognizer) {
         view.endEditing(true)
     }
     
+    
+    
+    //MARK: - textField and textView delegate method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+   
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" { textView.resignFirstResponder() }
+        return true
+    }
+    
+    //MARK: - method for selecting profile image
     func selectProfileImageFromPhotoLibrary(gestureRecognizer: UIGestureRecognizer) {
         let imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -82,18 +106,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         dismiss(animated: true, completion: nil)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-   
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" { textView.resignFirstResponder() }
-        return true
-    }
-    
-    // mark : initial set up view components
-    
+    //MARK: - Initial set up view components
     private func setUpImageView() {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.backgroundColor = UIColor.black
@@ -114,8 +127,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         idTextField.borderStyle = .roundedRect
         passwordTextField.placeholder = "Password"
         passwordTextField.borderStyle = .roundedRect
+        passwordTextField.isSecureTextEntry = true
         checkPasswordTextField.placeholder = "Check Password"
         checkPasswordTextField.borderStyle = .roundedRect
+        checkPasswordTextField.isSecureTextEntry = true
         
         idTextField.delegate = self
         passwordTextField.delegate = self
@@ -134,6 +149,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
     }
     
+    
+    
+    //MARK: - create and activate constraint
     private func setTranslatesAutoresizingMaskIntoConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -144,11 +162,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    // mark : create and activate constraint
-    
     private func createConstraint() {
         let space : CGFloat = 8.0
-        
+        setTranslatesAutoresizingMaskIntoConstraints()
         profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space).isActive = true
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: space).isActive = true
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true
@@ -173,7 +189,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         profileTextView.trailingAnchor.constraint(equalTo: idTextField.trailingAnchor).isActive = true
         profileTextView.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -space).isActive = true
         
-        
         cancelButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10).isActive = true
         cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.bounds.width / 4).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/4).isActive = true
@@ -185,23 +200,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+   
     
-    // mark : target actions of button
+    //MARK: - target actions of button
     
     func cancel(_ button: UIButton) {
         presentingViewController?.dismiss(animated: true)
     }
     
     func signUp(_ button: UIButton) {
+        if passwordTextField.text!.isEmpty || checkPasswordTextField.text!.isEmpty
+            || (passwordTextField.text! != checkPasswordTextField.text!) {return}
         presentingViewController?.dismiss(animated: true)
     }
 
