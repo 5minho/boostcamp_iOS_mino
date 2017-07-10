@@ -23,8 +23,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     override func loadView() {
         super.loadView()
         
-        //Mark : Create components
-        
         profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
@@ -72,6 +70,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         return true
     }
     
+    // mark : initial set up view components
+    
     private func setUpImageView() {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.backgroundColor = UIColor.black
@@ -101,7 +101,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     
     private func setUpButton() {
-        cancelButton.isEnabled = true
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(UIColor.red, for: .normal)
         cancelButton.setTitleColor(UIColor.white, for: .highlighted)
@@ -110,6 +109,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(UIColor.blue, for: .normal)
         signUpButton.setTitleColor(UIColor.white, for: .highlighted)
+        signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
     }
     
     private func setTranslatesAutoresizingMaskIntoConstraints() {
@@ -121,6 +121,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    // mark : create and activate constraint
     
     private func createConstraint() {
         let space : CGFloat = 8.0
@@ -171,10 +173,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         // Dispose of any resources that can be recreated.
     }
     
+    // mark : target actions of button
+    
     func cancel(_ button: UIButton) {
         presentingViewController?.dismiss(animated: true)
     }
     
+    func signUp(_ button: UIButton) {
+        presentingViewController?.dismiss(animated: true)
+    }
 
 }
 
