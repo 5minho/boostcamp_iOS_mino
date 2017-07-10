@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     //Mark : Properties
     
@@ -36,6 +36,7 @@ class SignUpViewController: UIViewController {
         setUpImageView()
         setUpTextField()
         setUpButton()
+        setUpTextView()
         
         view.addSubview(profileImageView)
         view.addSubview(idTextField)
@@ -45,13 +46,45 @@ class SignUpViewController: UIViewController {
         view.addSubview(cancelButton)
         view.addSubview(signUpButton)
         
+        let backgroundTapped = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard(gestureRecognizer:)))
+        backgroundTapped.numberOfTapsRequired = 1
+        view.addGestureRecognizer(backgroundTapped)
+        
+        setTranslatesAutoresizingMaskIntoConstraints()
         createConstraint()
     }
     
+    func dismissKeyBoard(gestureRecognizer: UIGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    func selectProfileImageFromPhotoLibrary(gestureRecognizer: UIGestureRecognizer) {
+            print("selectProfileImageFromPhotoLibrary")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+   
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" { textView.resignFirstResponder() }
+        return true
+    }
     
     private func setUpImageView() {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.backgroundColor = UIColor.black
+        
+        let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
+        profileImageTapRecognizer.numberOfTapsRequired = 1
+        profileImageView.addGestureRecognizer(profileImageTapRecognizer)
+        
+    }
+    
+    private func setUpTextView() {
+        profileTextView.backgroundColor = UIColor.gray
+        profileTextView.delegate = self
     }
     
     private func setUpTextField() {
@@ -61,6 +94,10 @@ class SignUpViewController: UIViewController {
         passwordTextField.borderStyle = .roundedRect
         checkPasswordTextField.placeholder = "Check Password"
         checkPasswordTextField.borderStyle = .roundedRect
+        
+        idTextField.delegate = self
+        passwordTextField.delegate = self
+        checkPasswordTextField.delegate = self
     }
     
     private func setUpButton() {
@@ -75,8 +112,7 @@ class SignUpViewController: UIViewController {
         signUpButton.setTitleColor(UIColor.white, for: .highlighted)
     }
     
-    private func createConstraint() {
-        let space : CGFloat = 8.0
+    private func setTranslatesAutoresizingMaskIntoConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -84,10 +120,14 @@ class SignUpViewController: UIViewController {
         profileTextView.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func createConstraint() {
+        let space : CGFloat = 8.0
         
         profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space).isActive = true
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: space).isActive = true
-        profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5, constant: 0).isActive = true
+        profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier : 1/3, constant : 0).isActive = true
         
         idTextField.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
@@ -95,12 +135,11 @@ class SignUpViewController: UIViewController {
         idTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -space).isActive = true
         
         passwordTextField.leadingAnchor.constraint(equalTo: idTextField.leadingAnchor).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: space).isActive = true
+        passwordTextField.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalTo: idTextField.heightAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: idTextField.widthAnchor).isActive = true
         
         checkPasswordTextField.leadingAnchor.constraint(equalTo: idTextField.leadingAnchor).isActive = true
-        checkPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: space).isActive = true
         checkPasswordTextField.heightAnchor.constraint(equalTo: idTextField.heightAnchor).isActive = true
         checkPasswordTextField.widthAnchor.constraint(equalTo: idTextField.widthAnchor).isActive = true
         checkPasswordTextField.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true
@@ -135,5 +174,7 @@ class SignUpViewController: UIViewController {
     func cancel(_ button: UIButton) {
         presentingViewController?.dismiss(animated: true)
     }
+    
+
 }
 
