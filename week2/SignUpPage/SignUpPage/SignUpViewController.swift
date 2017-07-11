@@ -10,7 +10,7 @@ import UIKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate
 , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     //MARK: Properties
     var profileImageView : UIImageView!
     var idTextField : UITextField!
@@ -19,7 +19,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var profileTextView : UITextView!
     var cancelButton : UIButton!
     var signUpButton : UIButton!
-    
     var containerBottomConstraint : NSLayoutConstraint!
     
     //MARK: - View life cycle
@@ -31,8 +30,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         passwordTextField = UITextField()
         checkPasswordTextField = UITextField()
         profileTextView = UITextView()
-        cancelButton = UIButton()
-        signUpButton = UIButton()
+        cancelButton = UIButton(type: .system)
+        signUpButton = UIButton(type: .system)
         
         setUpImageView()
         setUpTextField()
@@ -179,16 +178,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     private func setUpButton() {
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(UIColor.red, for: .normal)
-        cancelButton.setTitleColor(UIColor.white, for: .highlighted)
         cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(UIColor.blue, for: .normal)
-        signUpButton.setTitleColor(UIColor.white, for: .highlighted)
         signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
     }
-    
-    
     
     //MARK: - create and activate constraint
     private func setTranslatesAutoresizingMaskIntoConstraints() {
@@ -228,7 +223,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         profileTextView.trailingAnchor.constraint(equalTo: idTextField.trailingAnchor).isActive = true
         profileTextView.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -space).isActive = true
         
-        cancelButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10).isActive = true
+        cancelButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/11).isActive = true
         cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.bounds.width / 4).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/4).isActive = true
         cancelButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -space).isActive = true
@@ -238,8 +233,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.heightAnchor.constraint(equalTo: cancelButton.heightAnchor).isActive = true
         signUpButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
     }
-    
-   
     
     //MARK: - target actions of button
     
