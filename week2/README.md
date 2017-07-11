@@ -32,12 +32,17 @@ MVC 패턴으로 디자인된 App의 객체는 model, view, controller 중 하�
   * 유용한 XCTest 메서드와 실무에서 어떤식으로 UnitTest를 하는지
 
 ***
-  - [ ] Sign Up Page 구성하기
-  
+  - [x] Sign Up Page 구성하기
+
   constraint를 정의하기전에 superview의 addSubView메서드를 수행하자
-* 궁금한 점
+* 질문
   * View.bounds와 View.frame의 차이점, 관계
     * bounds는 자기 자신 좌표계에서 view의 크기를 나타낸다
     * frame은 superview의 좌표계에서 view의 크기와 위치를 나타낸다.
   * UIButton 을 프로그래밍으로 생성했을때 버튼 클릭시 버튼색이 부드럽게 바뀌는거는 애니메이션으로 구현해야 하는지
+  * TextView의 스크롤을 올리고 내릴때 마다 끊김이 있음. 왜그럴까
+  * 키보드의 유무에 따라 오토레이아웃을 달리하는 작업을 하는데 궁금점이 있었음 https://github.com/minomi/boostcamp_iOS_mino/commit/6e50bdfccd953124ed4e2b8e207ffb24a060078d 의 53라인, 221라인 코멘트
+
+* 추가
+    * 키보드가 나올때 버튼의 autoLayout을 조정해서 텍스트 뷰에 입력 가능하게 함
 ***
