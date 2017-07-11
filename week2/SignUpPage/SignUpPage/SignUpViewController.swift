@@ -50,8 +50,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         backgroundTapped.numberOfTapsRequired = 1
         
         view.addGestureRecognizer(backgroundTapped)
-        containerBottomConstraint = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
-        containerBottomConstraint.isActive = true
         createConstraint()
     }
     
@@ -93,8 +91,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let convertedKeyboardEndFrame = view.convert(keyboardEndFrame, from: view.window)
         let rawAnimationCurve = (notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
         let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
-        
-        containerBottomConstraint.constant = view.bounds.maxY - convertedKeyboardEndFrame.minY
+    
+        containerBottomConstraint.constant = -(view.bounds.maxY - convertedKeyboardEndFrame.minY)
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState ,animationCurve], animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -105,16 +103,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         view.endEditing(true)
     }
     
-    
-    
     //MARK: - textField and textView delegate method
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
-    }
-   
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" { textView.resignFirstResponder() }
         return true
     }
     
@@ -152,7 +143,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
         profileImageTapRecognizer.numberOfTapsRequired = 1
         profileImageView.addGestureRecognizer(profileImageTapRecognizer)
-        
     }
     
     private func setUpTextView() {
@@ -226,7 +216,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/11).isActive = true
         cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.bounds.width / 4).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/4).isActive = true
-        cancelButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -space).isActive = true
+        
+        
+        containerBottomConstraint = cancelButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -space)
+        containerBottomConstraint.isActive = true
         
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: view.bounds.width / 4).isActive = true
         signUpButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
@@ -235,7 +228,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     
     //MARK: - target actions of button
-    
     func cancel(_ button: UIButton) {
         view.endEditing(true)
         presentingViewController?.dismiss(animated: true)
