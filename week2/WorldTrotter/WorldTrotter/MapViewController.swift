@@ -13,6 +13,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, CLLocationManager
     var mapView: MKMapView!
     var segmentedControl: UISegmentedControl!
     var currentPositionButton : UIButton!
+    var latitudeTextFeild : UITextField!
+    var longitudeTextFeild : UITextField!
+    var setAnnotationButton : UIButton!
     let locationManager: CLLocationManager = CLLocationManager()
     
     override func loadView() {
@@ -23,13 +26,19 @@ class MapViewController : UIViewController, MKMapViewDelegate, CLLocationManager
         createSegmentedControl()
         createCurrentPositionButton()
         createConstraint()
-        
     }
+//    func createTextField() {
+//        latitudeTextFeild = UITextField()
+//        longitudeTextFeild = UITextField()
+//    }
     
     func createConstraint() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         mapView.translatesAutoresizingMaskIntoConstraints = false
         currentPositionButton.translatesAutoresizingMaskIntoConstraints = false
+//        latitudeTextFeild.translatesAutoresizingMaskIntoConstraints = false
+//        longitudeTextFeild.translatesAutoresizingMaskIntoConstraints = false
+//        setAnnotationButton.translatesAutoresizingMaskIntoConstraints = false
         
         segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8.0).isActive = true
         segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0).isActive = true
@@ -38,10 +47,11 @@ class MapViewController : UIViewController, MKMapViewDelegate, CLLocationManager
         NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: segmentedControl, attribute: .bottom, multiplier: 1, constant: 8.0).isActive = true
         NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: segmentedControl, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: mapView, attribute: .width, relatedBy: .equal, toItem: segmentedControl, attribute: .width, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 3/4, constant: 0).isActive = true
+        NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.625, constant: 0).isActive = true
         
         NSLayoutConstraint(item: currentPositionButton, attribute: .top, relatedBy: .equal, toItem: mapView, attribute: .bottom, multiplier: 1, constant: 8.0).isActive = true
         NSLayoutConstraint(item: currentPositionButton, attribute: .leading, relatedBy: .equal, toItem: mapView, attribute: .leading, multiplier: 1 , constant: 0.0).isActive = true
+        NSLayoutConstraint(item: currentPositionButton, attribute: .width, relatedBy: .equal, toItem: mapView, attribute: .width, multiplier: 0.3, constant: 0).isActive = true
         NSLayoutConstraint(item: currentPositionButton, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: -8.0).isActive = true
     }
 

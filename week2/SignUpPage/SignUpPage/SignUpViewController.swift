@@ -19,6 +19,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var profileTextView : UITextView!
     var cancelButton : UIButton!
     var signUpButton : UIButton!
+    
+    var containerBottomConstraint : NSLayoutConstraint!
+    
     //MARK: - View life cycle
     override func loadView() {
         super.loadView()
@@ -46,8 +49,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let backgroundTapped = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard(gestureRecognizer:)))
         backgroundTapped.numberOfTapsRequired = 1
-        view.addGestureRecognizer(backgroundTapped)
         
+        view.addGestureRecognizer(backgroundTapped)
+        containerBottomConstraint = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
+        containerBottomConstraint.isActive = true
         createConstraint()
     }
     
@@ -60,7 +65,41 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    // MARK: - Notifications
+    func keyboardWillShowNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification: notification)
+    }
+    
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification: notification)
+    }
+    
+    func updateBottomLayoutConstraintWithNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else {return}
+        
+        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let convertedKeyboardEndFrame = view.convert(keyboardEndFrame, from: view.window)
+        let rawAnimationCurve = (notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
+        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
+        
+        containerBottomConstraint.constant = view.bounds.maxY - convertedKeyboardEndFrame.minY
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState ,animationCurve], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
     //MARK: - backgroundTap     
     func dismissKeyBoard(gestureRecognizer: UIGestureRecognizer) {
@@ -205,10 +244,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     //MARK: - target actions of button
     
     func cancel(_ button: UIButton) {
+        view.endEditing(true)
         presentingViewController?.dismiss(animated: true)
     }
     
     func signUp(_ button: UIButton) {
+        view.endEditing(true)
         if passwordTextField.text!.isEmpty || checkPasswordTextField.text!.isEmpty
             || (passwordTextField.text! != checkPasswordTextField.text!) {return}
         presentingViewController?.dismiss(animated: true)
