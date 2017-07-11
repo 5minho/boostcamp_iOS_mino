@@ -44,10 +44,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUp(_ sender: UIButton) {
-        let signUpViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
-
+        let signUpViewController = SignUpViewController()
         present(signUpViewController, animated: true)
-        
     }
 }
 

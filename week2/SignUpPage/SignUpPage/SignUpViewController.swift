@@ -24,7 +24,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     //MARK: - View life cycle
     override func loadView() {
         super.loadView()
-        
+        view.backgroundColor = UIColor.white
         profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
