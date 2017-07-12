@@ -20,11 +20,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var cancelButton : UIButton!
     var signUpButton : UIButton!
     var containerBottomConstraint : NSLayoutConstraint!
+    var profileImageWidthConstraint : NSLayoutConstraint!
     
     //MARK: - View life cycle
     override func loadView() {
         super.loadView()
+        
         view.backgroundColor = UIColor.white
+        //MARK: - view 생성
         profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
@@ -33,10 +36,41 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton = UIButton(type: .system)
         signUpButton = UIButton(type: .system)
         
-        setUpImageView()
-        setUpTextField()
-        setUpButton()
-        setUpTextView()
+        //MARK: - 프로필 이미지 뷰 속성 세팅
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.backgroundColor = UIColor.black
+        
+        let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
+        profileImageTapRecognizer.numberOfTapsRequired = 1
+        profileImageView.addGestureRecognizer(profileImageTapRecognizer)
+        
+        //MARK: - 텍스트 필드 속성 세팅
+        idTextField.placeholder = "ID"
+        idTextField.borderStyle = .roundedRect
+        passwordTextField.placeholder = "Password"
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.isSecureTextEntry = true
+        checkPasswordTextField.placeholder = "Check Password"
+        checkPasswordTextField.borderStyle = .roundedRect
+        checkPasswordTextField.isSecureTextEntry = true
+        
+        idTextField.delegate = self
+        passwordTextField.delegate = self
+        checkPasswordTextField.delegate = self
+        
+        //MARK: - 취소, 등록 버튼 세팅
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(UIColor.red, for: .normal)
+        cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
+        
+        signUpButton.setTitle("Sign Up", for: .normal)
+        signUpButton.setTitleColor(UIColor.blue, for: .normal)
+        signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+        
+        //MARK: - 텍스트뷰 세팅
+        profileTextView.backgroundColor = UIColor.cyan
+        profileTextView.delegate = self
+        
         
         view.addSubview(profileImageView)
         view.addSubview(idTextField)
@@ -50,7 +84,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         backgroundTapped.numberOfTapsRequired = 1
         
         view.addGestureRecognizer(backgroundTapped)
-        createConstraint()
+        defineConstraint()
     }
     
     override func viewDidLoad() {
@@ -74,7 +108,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
-    // MARK: - Notifications
+    // MARK: - Keyboard Notifications
     func keyboardWillShowNotification(notification: NSNotification) {
         updateBottomLayoutConstraintWithNotification(notification: notification)
     }
@@ -126,57 +160,31 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         present(imagePicker, animated: true, completion: nil)
     }
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let profileImage = info[UIImagePickerControllerEditedImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        
         profileImageView.image = profileImage
         dismiss(animated: true, completion: nil)
     }
     
-    //MARK: - Initial set up view components
-    private func setUpImageView() {
-        profileImageView.isUserInteractionEnabled = true
-        profileImageView.backgroundColor = UIColor.black
-        
-        let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
-        profileImageTapRecognizer.numberOfTapsRequired = 1
-        profileImageView.addGestureRecognizer(profileImageTapRecognizer)
+    //MARK: - target actions of button
+    func cancel(_ button: UIButton) {
+        view.endEditing(true)
+        presentingViewController?.dismiss(animated: true)
     }
     
-    private func setUpTextView() {
-        profileTextView.backgroundColor = UIColor.gray
-        profileTextView.delegate = self
+    func signUp(_ button: UIButton) {
+        view.endEditing(true)
+        if passwordTextField.text!.isEmpty || checkPasswordTextField.text!.isEmpty
+            || (passwordTextField.text! != checkPasswordTextField.text!) {return}
+        presentingViewController?.dismiss(animated: true)
     }
     
-    private func setUpTextField() {
-        idTextField.placeholder = "ID"
-        idTextField.borderStyle = .roundedRect
-        passwordTextField.placeholder = "Password"
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.isSecureTextEntry = true
-        checkPasswordTextField.placeholder = "Check Password"
-        checkPasswordTextField.borderStyle = .roundedRect
-        checkPasswordTextField.isSecureTextEntry = true
-        
-        idTextField.delegate = self
-        passwordTextField.delegate = self
-        checkPasswordTextField.delegate = self
-    }
     
-    private func setUpButton() {
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.setTitleColor(UIColor.red, for: .normal)
-        cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
-        
-        signUpButton.setTitle("Sign Up", for: .normal)
-        signUpButton.setTitleColor(UIColor.blue, for: .normal)
-        signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
-    }
-    
-    //MARK: - create and activate constraint
-    private func setTranslatesAutoresizingMaskIntoConstraints() {
+    //MARK: - view 제약사항 정의
+    private func offTranslatesAutoresizingMaskIntoConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -186,10 +194,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func createConstraint() {
+    private func defineConstraint() {
         let space : CGFloat = 8.0
-        setTranslatesAutoresizingMaskIntoConstraints()
-        profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space).isActive = true
+        offTranslatesAutoresizingMaskIntoConstraints()
+        profileImageWidthConstraint = profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space)
+        profileImageWidthConstraint.isActive = true
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: space).isActive = true
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier : 0.29, constant : 0).isActive = true
@@ -227,18 +236,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
     }
     
-    //MARK: - target actions of button
-    func cancel(_ button: UIButton) {
-        view.endEditing(true)
-        presentingViewController?.dismiss(animated: true)
+    //MARK: - 가로모드일때 constraint 수정
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if self.view.traitCollection.verticalSizeClass == .compact {
+            
+        }
     }
-    
-    func signUp(_ button: UIButton) {
-        view.endEditing(true)
-        if passwordTextField.text!.isEmpty || checkPasswordTextField.text!.isEmpty
-            || (passwordTextField.text! != checkPasswordTextField.text!) {return}
-        presentingViewController?.dismiss(animated: true)
-    }
-
 }
 
