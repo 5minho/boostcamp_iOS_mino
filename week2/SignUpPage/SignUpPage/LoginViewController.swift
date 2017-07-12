@@ -10,13 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var txtID: UITextField!
-    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var idField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        txtID.delegate = self
-        txtPassword.delegate = self
+        idField.delegate = self
+        passwordField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -31,13 +31,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func dismissKeyboard(_sender: AnyObject) {
-        txtID.resignFirstResponder()
-        txtPassword.resignFirstResponder()
+        idField.resignFirstResponder()
+        passwordField.resignFirstResponder()
     }
     
     @IBAction func signIn(_ sender: UIButton) {
-        guard let id = txtID.text else {return}
-        guard let pw = txtPassword.text else {return}
+        guard let id = idField.text else {return}
+        guard let pw = passwordField.text else {return}
         
         print("touch up inside - sign in")
         print("ID : " + id + ", PW : " + pw)
