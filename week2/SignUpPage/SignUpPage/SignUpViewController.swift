@@ -12,6 +12,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: Properties
+    /* 적절한 접근권한 줘보기 open, public, internal, fileprivate, private */
     var profileImageView : UIImageView!
     var idTextField : UITextField!
     var passwordTextField : UITextField!
@@ -22,13 +23,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var containerBottomConstraint : NSLayoutConstraint!
     var profileImageWidthConstraint : NSLayoutConstraint!
     
-    //MARK: - View life cycle
+    //MARK: - UIViewController life cycle
     override func loadView() {
         super.loadView()
         
         view.backgroundColor = UIColor.white
-        //MARK: - view 생성
-        profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
         checkPasswordTextField = UITextField()
@@ -36,6 +35,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton = UIButton(type: .system)
         signUpButton = UIButton(type: .system)
         
+
         //MARK: - 프로필 이미지 뷰 속성 세팅
         profileImageView.isUserInteractionEnabled = true
         profileImageView.backgroundColor = UIColor.black
@@ -71,6 +71,25 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         profileTextView.backgroundColor = UIColor.cyan
         profileTextView.delegate = self
         
+
+//        setUpImageView()
+        // setUpImageView 대신에 이렇게 해보는 것은 어떨런지
+        
+        profileImageView = {
+            [unowned self] in
+            
+            let imageView: UIImageView = UIImageView()
+            
+            imageView.isUserInteractionEnabled = true
+            imageView.backgroundColor = .black
+            
+            let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
+            profileImageTapRecognizer.numberOfTapsRequired = 1
+            imageView.addGestureRecognizer(profileImageTapRecognizer)
+            
+            return imageView
+        }()
+        
         
         view.addSubview(profileImageView)
         view.addSubview(idTextField)
@@ -98,8 +117,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardWillShowNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardWillHideNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,12 +128,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
-    // MARK: - Keyboard Notifications
-    func keyboardWillShowNotification(notification: NSNotification) {
+
+    // MARK: - Notifications
+    func didReceiveKeyboardWillShowNotification(notification: NSNotification) {
         updateBottomLayoutConstraintWithNotification(notification: notification)
     }
     
-    func keyboardWillHideNotification(notification: NSNotification) {
+    func didReceiveKeyboardWillHideNotification(notification: NSNotification) {
         updateBottomLayoutConstraintWithNotification(notification: notification)
     }
     
@@ -184,7 +205,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     
     
     //MARK: - view 제약사항 정의
-    private func offTranslatesAutoresizingMaskIntoConstraints() {
+    func offTranslatesAutoresizingMaskIntoConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -194,7 +215,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func defineConstraint() {
+    func defineConstraint() {
         let space : CGFloat = 8.0
         offTranslatesAutoresizingMaskIntoConstraints()
         profileImageWidthConstraint = profileImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: space)

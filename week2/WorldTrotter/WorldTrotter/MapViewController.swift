@@ -138,8 +138,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, CLLocationManager
             break
         }
     }
-    
-    func goLocation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue: CLLocationDegrees, delta span : Double)
+    /* 잘못된 위, 경도 값 입력시 크래쉬 */
+    @discardableResult func goLocation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue: CLLocationDegrees, delta span : Double)
     -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
@@ -164,13 +164,18 @@ class MapViewController : UIViewController, MKMapViewDelegate, CLLocationManager
         mapView.addAnnotation(annotation)
     }
     
+    /* 핀이 없을 경우 크래쉬가 나는 것 해결 */
+    /* 핀이 있어도 제대로 순회하지 않음 */
     func tour(button: UIButton) {
         currentPinIndex %= (mapView.annotations.count - 1)
         print(currentPinIndex)
-        _ = goLocation(latitude: mapView.annotations[currentPinIndex].coordinate.latitude, longitude: mapView.annotations[currentPinIndex].coordinate.longitude, delta: 1)
+        
+        // goLocation 메서드에 @discardableResult추가로 _ = 해결
+        goLocation(latitude: mapView.annotations[currentPinIndex].coordinate.latitude, longitude: mapView.annotations[currentPinIndex].coordinate.longitude, delta: 1)
         currentPinIndex += 1
     }
     
+    /* 사용자가 위치사용을 허용하지 않았을 때의 예외처리 */
     func annotateCurrentPositionAndZoom() {
         if CLLocationManager.locationServicesEnabled() {
             mapView.setUserTrackingMode(.follow, animated: true)
