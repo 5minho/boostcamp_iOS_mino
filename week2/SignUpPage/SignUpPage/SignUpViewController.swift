@@ -12,6 +12,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: Properties
+    /* 적절한 접근권한 줘보기 open, public, internal, fileprivate, private */
     var profileImageView : UIImageView!
     var idTextField : UITextField!
     var passwordTextField : UITextField!
@@ -21,11 +22,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var signUpButton : UIButton!
     var containerBottomConstraint : NSLayoutConstraint!
     
-    //MARK: - View life cycle
+    //MARK: - UIViewController life cycle
     override func loadView() {
         super.loadView()
+        
         view.backgroundColor = UIColor.white
-        profileImageView = UIImageView()
+//        profileImageView = UIImageView()
         idTextField = UITextField()
         passwordTextField = UITextField()
         checkPasswordTextField = UITextField()
@@ -33,7 +35,25 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton = UIButton(type: .system)
         signUpButton = UIButton(type: .system)
         
-        setUpImageView()
+//        setUpImageView()
+        // setUpImageView 대신에 이렇게 해보는 것은 어떨런지
+        
+        profileImageView = {
+            [unowned self] in
+            
+            let imageView: UIImageView = UIImageView()
+            
+            imageView.isUserInteractionEnabled = true
+            imageView.backgroundColor = .black
+            
+            let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
+            profileImageTapRecognizer.numberOfTapsRequired = 1
+            imageView.addGestureRecognizer(profileImageTapRecognizer)
+            
+            return imageView
+        }()
+        
+        
         setUpTextField()
         setUpButton()
         setUpTextView()
@@ -64,8 +84,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardWillShowNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyboardWillHideNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,11 +96,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     
     // MARK: - Notifications
-    func keyboardWillShowNotification(notification: NSNotification) {
+    func didReceiveKeyboardWillShowNotification(notification: NSNotification) {
         updateBottomLayoutConstraintWithNotification(notification: notification)
     }
     
-    func keyboardWillHideNotification(notification: NSNotification) {
+    func didReceiveKeyboardWillHideNotification(notification: NSNotification) {
         updateBottomLayoutConstraintWithNotification(notification: notification)
     }
     

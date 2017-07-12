@@ -86,8 +86,8 @@
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="736" height="414"/>
                     <connections>
-                        <outlet property="txtID" destination="psI-c6-95E" id="dtc-Wc-yjt"/>
-                        <outlet property="txtPassword" destination="Lmp-qD-yjd" id="otv-5P-z6H"/>
+                        <outlet property="idField" destination="psI-c6-95E" id="V7B-mz-WQ8"/>
+                        <outlet property="passwordField" destination="Lmp-qD-yjd" id="M45-8D-7pO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68h-8k-wnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
