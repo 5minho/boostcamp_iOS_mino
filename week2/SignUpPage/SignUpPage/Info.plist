@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows you to add photos to your profile</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows you to add photos to your profile</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -33,10 +37,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Allows you to add photos to your profile</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows you to add photos to your profile</string>
 </dict>
 </plist>

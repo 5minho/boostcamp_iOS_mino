@@ -3,16 +3,17 @@
 
 * __궁금한 점__
   *  조원들과 MVC 패턴의 장점을 확실하게 느낄수 있는 구체적인 상황을 예를 들어 생각해보고 조별 과제에 추가 했으면 좋을거 같다
-***
 
 
  - [x] Define Your Data Model 파트까지 읽어오기
+
 
 * __궁금한 점__
   * addTarget 에서 selector로 함수를 넘기는데 클로저로 구현할 수 도 있을거 같은데 selector로 넘기는 이유
   * 유용한 XCTest 메서드와 실무에서 어떤식으로 UnitTest를 하는지
 
 ***
+### 도전과제
   - [x] Sign Up Page 구성하기
 
   constraint를 정의하기전에 superview의 addSubView메서드를 수행하자
@@ -27,3 +28,8 @@
 * __추가__
     * 키보드가 나올때 버튼의 autoLayout을 조정해서 텍스트 뷰에 입력 가능하게 함
 ***
+
+### Swift Programming Language Guide 두 번째
+
+
+### ios Programming Guide 첫 번째

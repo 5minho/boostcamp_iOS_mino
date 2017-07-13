@@ -26,7 +26,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     //MARK: - UIViewController life cycle
     override func loadView() {
         super.loadView()
-        
         view.backgroundColor = UIColor.white
         idTextField = UITextField()
         passwordTextField = UITextField()
@@ -35,6 +34,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cancelButton = UIButton(type: .system)
         signUpButton = UIButton(type: .system)
         
+        profileImageView = {
+            [unowned self] in
+            
+            let imageView: UIImageView = UIImageView()
+            
+            imageView.isUserInteractionEnabled = true
+            imageView.backgroundColor = .black
+            
+            let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
+            profileImageTapRecognizer.numberOfTapsRequired = 1
+            imageView.addGestureRecognizer(profileImageTapRecognizer)
+            
+            return imageView
+        }()
 
         //MARK: - 프로필 이미지 뷰 속성 세팅
         profileImageView.isUserInteractionEnabled = true
@@ -72,23 +85,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         profileTextView.delegate = self
         
 
-//        setUpImageView()
+        //        setUpImageView()
         // setUpImageView 대신에 이렇게 해보는 것은 어떨런지
         
-        profileImageView = {
-            [unowned self] in
-            
-            let imageView: UIImageView = UIImageView()
-            
-            imageView.isUserInteractionEnabled = true
-            imageView.backgroundColor = .black
-            
-            let profileImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.selectProfileImageFromPhotoLibrary(gestureRecognizer:)))
-            profileImageTapRecognizer.numberOfTapsRequired = 1
-            imageView.addGestureRecognizer(profileImageTapRecognizer)
-            
-            return imageView
-        }()
         
         
         view.addSubview(profileImageView)

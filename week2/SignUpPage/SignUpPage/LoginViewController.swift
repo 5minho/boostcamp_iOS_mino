@@ -13,6 +13,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    lazy var signUpViewController = { () -> SignUpViewController in 
+        let viewController = SignUpViewController()
+        print("create signUpViewController")
+        return viewController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         idField.delegate = self
@@ -44,7 +50,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUp(_ sender: UIButton) {
-        let signUpViewController = SignUpViewController()
         present(signUpViewController, animated: true)
     }
 }
