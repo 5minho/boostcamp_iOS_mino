@@ -17,9 +17,13 @@ class ItemsViewController : UITableViewController {
         itemsArrayClassifiedBy50Dollor = [ItemStore(empty: true), ItemStore(empty: true)]
         classifyBy50Dollor()
         
-        let footerCell = UITableViewCell(style: .default, reuseIdentifier: "UITableVuewCell")
+        let footerCell = UITableViewCell(style: .subtitle, reuseIdentifier: "UITableVuewCell")
+        footerCell.heightAnchor.constraint(equalToConstant: 44).isActive = true
         footerCell.textLabel?.text = "No more items!"
         self.tableView.tableFooterView = footerCell
+        self.tableView.rowHeight = 60
+        let backgroundImage = UIImage(named: "background")
+        self.tableView.backgroundView = UIImageView(image: backgroundImage)
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
@@ -53,7 +57,9 @@ class ItemsViewController : UITableViewController {
 //        let item = itemStore.allItems[indexPath.row]
         let item = itemsArrayClassifiedBy50Dollor[indexPath.section].allItems[indexPath.row]
         cell.textLabel?.text = item.name
+        cell.textLabel?.font = cell.textLabel?.font.withSize(20)
         cell.detailTextLabel?.text = "$\(item.valueInDollars)"
+        cell.detailTextLabel?.font = cell.detailTextLabel?.font.withSize(20)
         return cell
     }
     
