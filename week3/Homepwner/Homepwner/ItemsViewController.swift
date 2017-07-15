@@ -16,6 +16,11 @@ class ItemsViewController : UITableViewController {
         super.viewDidLoad()
         itemsArrayClassifiedBy50Dollor = [ItemStore(empty: true), ItemStore(empty: true)]
         classifyBy50Dollor()
+        
+        let footerCell = UITableViewCell(style: .default, reuseIdentifier: "UITableVuewCell")
+        footerCell.textLabel?.text = "No more items!"
+        self.tableView.tableFooterView = footerCell
+        
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
@@ -55,6 +60,5 @@ class ItemsViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsArrayClassifiedBy50Dollor[section].allItems.count
     }
-    
     
 }
