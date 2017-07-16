@@ -2,6 +2,9 @@
   - 교재 333 페이지 다시 한번 보기
 - ARC
   - strong, weak, unowned 이해하기!!
+###### Thread
+Main Thread와 Run loop 의 관계???
+
 ###### 책 내용 질문
 __193 page__
 
