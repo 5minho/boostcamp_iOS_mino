@@ -37,7 +37,6 @@ class ItemsViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (indexPath.row == itemStore.allItems.count) { return }
         if editingStyle == .delete {
             let item = itemStore.allItems[indexPath.row]
             let title = "Delete \(item.name)?"
