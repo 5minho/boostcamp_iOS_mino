@@ -11,20 +11,15 @@ import UIKit
 class ItemStore {
     var allItems = [Item]()
     
-    init(empty : Bool = false) {
-        if (!empty) {
-            for _ in 0..<5 {
-                createItem()
-            }
+    init() {
+        for _ in 0..<5 {
+            createItem()
         }
     }
-
     
     func createItem() -> Item {
         let newItem = Item(random: true)
         allItems.append(newItem)
         return newItem
     }
-    
-
 }
