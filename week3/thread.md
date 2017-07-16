@@ -40,5 +40,7 @@ main thread는 앱의 실행과 긴밀한 관련이 있기 때문에 이미지�
 
 ## 출처
 http://maskkwon.tistory.com/
+
 http://bartysways.net/?p=562
+
 http://linkedlist.tistory.com/entry/iPhone-멀티스레딩-NSThread
