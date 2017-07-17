@@ -14,6 +14,7 @@
 		5A5FDC7F1F17D9E300E4E7CF /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FDC7E1F17D9E300E4E7CF /* ItemsViewController.swift */; };
 		5A5FDC811F17DB2400E4E7CF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FDC801F17DB2400E4E7CF /* Item.swift */; };
 		5A5FDC831F17E1DE00E4E7CF /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FDC821F17E1DE00E4E7CF /* ItemStore.swift */; };
+		5A889FBD1F1C9E1D001103F5 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A889FBC1F1C9E1D001103F5 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5A5FDC7E1F17D9E300E4E7CF /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		5A5FDC801F17DB2400E4E7CF /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5A5FDC821F17E1DE00E4E7CF /* ItemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
+		5A889FBC1F1C9E1D001103F5 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				5A5FDC6C1F17D27100E4E7CF /* AppDelegate.swift */,
 				5A5FDC801F17DB2400E4E7CF /* Item.swift */,
 				5A5FDC821F17E1DE00E4E7CF /* ItemStore.swift */,
+				5A889FBC1F1C9E1D001103F5 /* ItemCell.swift */,
 				5A5FDC701F17D27100E4E7CF /* Main.storyboard */,
 				5A5FDC731F17D27100E4E7CF /* Assets.xcassets */,
 				5A5FDC751F17D27100E4E7CF /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 				5A5FDC7F1F17D9E300E4E7CF /* ItemsViewController.swift in Sources */,
 				5A5FDC831F17E1DE00E4E7CF /* ItemStore.swift in Sources */,
 				5A5FDC6D1F17D27100E4E7CF /* AppDelegate.swift in Sources */,
+				5A889FBD1F1C9E1D001103F5 /* ItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +314,7 @@
 				5A5FDC7D1F17D27100E4E7CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
