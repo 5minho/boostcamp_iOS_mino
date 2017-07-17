@@ -3,7 +3,7 @@
 - ARC
   - strong, weak, unowned 이해하기!!
 ###### Thread
-Main Thread와 Run loop 의 관계???
+Main Thread 에서 event handling 을 위한 run loop도 실행되고, UI를 그리는 작업도 실행되는 것인가????
 
 ###### 책 내용 질문
 __193 page__
