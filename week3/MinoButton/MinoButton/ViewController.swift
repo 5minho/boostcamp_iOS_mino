@@ -33,19 +33,18 @@ class ViewController: UIViewController {
         disableButton.setTitle(title: "Disable the button", for: .normal)
         disableButton.setTitle(title: "Enable the button", for: .selected)
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(changeState(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.cancelsTouchesInView = false
-        disableButton.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(changeState(_:)))
+//        tapGestureRecognizer.numberOfTapsRequired = 1
+//        tapGestureRecognizer.cancelsTouchesInView = false
+//        disableButton.addGestureRecognizer(tapGestureRecognizer)
         
-        
-//        disableButton.addTarget(self, action: #selector(changeState(_:)), for: .touchUpInside)
+        disableButton.addTarget(self, action: #selector(changeState(_:)), for: .touchUpInside)
         
         view.addSubview(minoButton)
         view.addSubview(disableButton)
     }
     
-    func changeState(_ gesture: UIGestureRecognizer) {
+    func changeState(_ button: MinoButton) {
         minoButton.isEnabled = minoButton.isEnabled ? false : true
     }
 

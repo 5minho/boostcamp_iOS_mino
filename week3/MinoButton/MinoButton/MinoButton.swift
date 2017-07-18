@@ -42,6 +42,12 @@ class MinoButton : UIView {
         }
     }
     
+    open var isEnabled : Bool = true {
+        didSet {
+            updateCurrentState()
+        }
+    }
+    
     open func title(for state: UIControlState) -> String? {
         return self.titleLabel?.text
     }
@@ -49,12 +55,8 @@ class MinoButton : UIView {
     private var stateStringDictionary = [UIControlState : String]()
     private var stateColorDictionary = [UIControlState : UIColor]()
     
-    open var isEnabled : Bool = true {
-        didSet {
-            updateCurrentState()
-        }
-    }
-    
+    private var actionsOfTarget = [NSObject : Set<Selector>]()
+  
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLabel()
@@ -79,7 +81,9 @@ class MinoButton : UIView {
 
     open func updateCurrentState() {
         self.isUserInteractionEnabled = self.isEnabled
-        if !self.isEnabled {self.alpha = 0.5}
+        if !(self.isEnabled) {
+            self.alpha = 0.5
+        }
         else {self.alpha = 1}
     }
     
@@ -125,7 +129,15 @@ class MinoButton : UIView {
     }
     
     open func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
-
+        if target == nil {
+        }
+        guard let target = target as? NSObject else {return}
+        if var actions = actionsOfTarget[target] {
+            actions.insert(action)
+            return
+        }
+        actionsOfTarget[target] = []
+        actionsOfTarget[target]?.insert(action)
     }
     
     private func updateBackgroundImageView(_ image: UIImage) {
@@ -141,6 +153,11 @@ class MinoButton : UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for (target, selectors) in actionsOfTarget {
+            for selector in selectors {
+                target.perform(selector, with: self)
+            }
+        }
         if currentState == UIControlState.selected.union(.highlighted) {
             currentState = .normal
             return
