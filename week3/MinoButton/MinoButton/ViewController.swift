@@ -31,15 +31,22 @@ class ViewController: UIViewController {
         minoButton.setTitleColor(UIColor.red, for: [.selected, .highlighted])
         
         disableButton.setTitle(title: "Disable the button", for: .normal)
-        disableButton.setTitle(title: "able the button", for: .selected)
+        disableButton.setTitle(title: "Enable the button", for: .selected)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(changeState(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.cancelsTouchesInView = false
+        disableButton.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+//        disableButton.addTarget(self, action: #selector(changeState(_:)), for: .touchUpInside)
         
         view.addSubview(minoButton)
         view.addSubview(disableButton)
-        
     }
     
-    func changeState(_ sender: MinoButton) {
-        
+    func changeState(_ gesture: UIGestureRecognizer) {
+        minoButton.isEnabled = minoButton.isEnabled ? false : true
     }
 
     override func didReceiveMemoryWarning() {

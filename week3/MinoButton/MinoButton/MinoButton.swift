@@ -38,7 +38,7 @@ class MinoButton : UIView {
     
     private var currentState = UIControlState.normal {
         didSet {
-            updateButtonByState()
+            updateButtonByCurrentState()
         }
     }
     
@@ -48,6 +48,12 @@ class MinoButton : UIView {
     
     private var stateStringDictionary = [UIControlState : String]()
     private var stateColorDictionary = [UIControlState : UIColor]()
+    
+    open var isEnabled : Bool = true {
+        didSet {
+            updateCurrentState()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,6 +76,12 @@ class MinoButton : UIView {
         titleLabel?.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
         titleLabel?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
     }
+
+    open func updateCurrentState() {
+        self.isUserInteractionEnabled = self.isEnabled
+        if !self.isEnabled {self.alpha = 0.5}
+        else {self.alpha = 1}
+    }
     
     open func backgroundImage(for state : UIControlState)-> UIImage? {
         return backgroundImageView?.image
@@ -81,23 +93,15 @@ class MinoButton : UIView {
     
     open func setTitle(title: String, for state: UIControlState) {
         stateStringDictionary[state] = title
-        updateButtonByState()
+        updateButtonByCurrentState()
     }
     
     func setTitleColor(_ color: UIColor?, for state: UIControlState) {
         stateColorDictionary[state] = color
-        updateButtonByState()
+        updateButtonByCurrentState()
     }
     
-    private func changeDisabledButton() {
-        titleLabel?.isOpaque = false
-    }
-
-    
-    private func updateButtonByState() {
-        if currentState == .disabled {
-            
-        }
+    private func updateButtonByCurrentState() {
         updateTitleString()
         updateTitleColor()
     }
@@ -120,6 +124,10 @@ class MinoButton : UIView {
         }
     }
     
+    open func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
+
+    }
+    
     private func updateBackgroundImageView(_ image: UIImage) {
         backgroundImageView?.image = image
     }
@@ -139,4 +147,5 @@ class MinoButton : UIView {
         }
         currentState = .selected
     }
+
 }
