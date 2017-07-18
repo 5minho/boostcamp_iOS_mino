@@ -39,6 +39,8 @@ class ViewController: UIViewController {
 //        disableButton.addGestureRecognizer(tapGestureRecognizer)
         
         disableButton.addTarget(self, action: #selector(changeState(_:)), for: .touchUpInside)
+        disableButton.addTarget(self, action: #selector(function1(_:)), for: .touchUpInside)
+        disableButton.addTarget(self, action: #selector(function2(_:)), for: .touchUpInside)
         
         view.addSubview(minoButton)
         view.addSubview(disableButton)
@@ -46,6 +48,14 @@ class ViewController: UIViewController {
     
     func changeState(_ button: MinoButton) {
         minoButton.isEnabled = minoButton.isEnabled ? false : true
+    }
+    
+    func function1(_ button:MinoButton) {
+        print("function1")
+    }
+    
+    func function2(_ button:MinoButton) {
+        print("function2")
     }
 
     override func didReceiveMemoryWarning() {

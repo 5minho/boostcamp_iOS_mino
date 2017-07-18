@@ -130,14 +130,14 @@ class MinoButton : UIView {
     
     open func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
         if target == nil {
+            
         }
         guard let target = target as? NSObject else {return}
-        if var actions = actionsOfTarget[target] {
-            actions.insert(action)
+        if let _ = actionsOfTarget[target] {
+            actionsOfTarget[target]?.insert(action)
             return
         }
-        actionsOfTarget[target] = []
-        actionsOfTarget[target]?.insert(action)
+        actionsOfTarget[target] = [action]
     }
     
     private func updateBackgroundImageView(_ image: UIImage) {
@@ -158,6 +158,7 @@ class MinoButton : UIView {
                 target.perform(selector, with: self)
             }
         }
+        
         if currentState == UIControlState.selected.union(.highlighted) {
             currentState = .normal
             return
