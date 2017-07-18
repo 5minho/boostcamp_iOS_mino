@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         minoButton = MinoButton(frame: CGRect(x: 50, y: 50, width: 200, height: 50))
         disableButton = MinoButton(frame: CGRect(x: 50, y: 100, width: 200, height: 50))
@@ -37,10 +38,11 @@ class ViewController: UIViewController {
 //        tapGestureRecognizer.numberOfTapsRequired = 1
 //        tapGestureRecognizer.cancelsTouchesInView = false
 //        disableButton.addGestureRecognizer(tapGestureRecognizer)
-        
+      
+        minoButton.addTarget(nil, action: #selector(touchUpInsideAndButtonTapped(_:)), for: .touchUpInside)
         disableButton.addTarget(self, action: #selector(changeState(_:)), for: .touchUpInside)
-        disableButton.addTarget(self, action: #selector(function1(_:)), for: .touchUpInside)
-        disableButton.addTarget(self, action: #selector(function2(_:)), for: .touchUpInside)
+        disableButton.addTarget(self, action: #selector(disableButtonSelector1(_:)), for: .touchUpInside)
+        disableButton.addTarget(self, action: #selector(disableButtonSelector2(_:)), for: .touchUpInside)
         
         view.addSubview(minoButton)
         view.addSubview(disableButton)
@@ -50,13 +52,19 @@ class ViewController: UIViewController {
         minoButton.isEnabled = minoButton.isEnabled ? false : true
     }
     
-    func function1(_ button:MinoButton) {
-        print("function1")
+    func disableButtonSelector1(_ button:MinoButton) {
+        print("disableButtonSelector1")
     }
     
-    func function2(_ button:MinoButton) {
-        print("function2")
+    func disableButtonSelector2(_ button:MinoButton) {
+        print("disableButtonSelector2")
     }
+    
+    func touchUpInsideAndButtonTapped(_ button:MinoButton) {
+        print("touch up inside")
+        print("button tapped")
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

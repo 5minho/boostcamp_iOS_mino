@@ -44,7 +44,7 @@ class MinoButton : UIView {
     
     open var isEnabled : Bool = true {
         didSet {
-            updateCurrentState()
+            updateUserInteractionAndAlpha()
         }
     }
     
@@ -54,7 +54,6 @@ class MinoButton : UIView {
     
     private var stateStringDictionary = [UIControlState : String]()
     private var stateColorDictionary = [UIControlState : UIColor]()
-    
     private var actionsOfTarget = [NSObject : Set<Selector>]()
   
     override init(frame: CGRect) {
@@ -79,7 +78,7 @@ class MinoButton : UIView {
         titleLabel?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
     }
 
-    open func updateCurrentState() {
+    open func updateUserInteractionAndAlpha() {
         self.isUserInteractionEnabled = self.isEnabled
         if !(self.isEnabled) {
             self.alpha = 0.5
@@ -130,9 +129,11 @@ class MinoButton : UIView {
     
     open func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
         if target == nil {
-            
+            let target = self.next?.target(forAction: action, withSender: self)
+            UIApplication.shared.sendAction(action, to: target, from: self, for: nil)
+            return
         }
-        guard let target = target as? NSObject else {return}
+        guard let target = target as? NSObject else { return }
         if let _ = actionsOfTarget[target] {
             actionsOfTarget[target]?.insert(action)
             return
@@ -153,12 +154,7 @@ class MinoButton : UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for (target, selectors) in actionsOfTarget {
-            for selector in selectors {
-                target.perform(selector, with: self)
-            }
-        }
-        
+        performActions()
         if currentState == UIControlState.selected.union(.highlighted) {
             currentState = .normal
             return
@@ -166,4 +162,11 @@ class MinoButton : UIView {
         currentState = .selected
     }
 
+    private func performActions() {
+        for (target, selectors) in actionsOfTarget {
+            for selector in selectors {
+                target.perform(selector, with: self)
+            }
+        }
+    }
 }
