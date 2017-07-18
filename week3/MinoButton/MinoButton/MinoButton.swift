@@ -52,7 +52,6 @@ class MinoButton : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLabel()
-        stateStringDictionary[currentState] = ""
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -64,11 +63,12 @@ class MinoButton : UIView {
     private func setUpLabel() {
         self.titleLabel = UILabel()
         self.addSubview(titleLabel!)
+        titleLabel?.textAlignment = .center
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        titleLabel?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        titleLabel?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        titleLabel?.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        titleLabel?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        titleLabel?.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
+        titleLabel?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
     }
     
     open func backgroundImage(for state : UIControlState)-> UIImage? {

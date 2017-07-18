@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        minoButton = MinoButton(frame: CGRect(x: 50, y: 50, width: 100, height: 30))
-        disableButton = MinoButton(frame: CGRect(x: 50, y: 100, width: 200, height: 30))
+        minoButton = MinoButton(frame: CGRect(x: 50, y: 50, width: 200, height: 50))
+        disableButton = MinoButton(frame: CGRect(x: 50, y: 100, width: 200, height: 50))
         minoButton.backgroundColor = UIColor.black
 
         minoButton.setTitle(title: "normal", for: .normal)
