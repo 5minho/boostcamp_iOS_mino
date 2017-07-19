@@ -19,6 +19,7 @@
 
     그러면 UIWindow는 touch event를 이 view에 보낸다.
 
+
 ##### Thread
 Main Thread 에서 event handling 을 위한 run loop도 실행되고, UI를 그리는 작업도 실행되는 것인가????
 
