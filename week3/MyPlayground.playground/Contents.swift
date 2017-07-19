@@ -2,10 +2,19 @@
 
 import Cocoa
 
-let lastname = "김"
-let consonant = "ㄱ"
+var indexArr = ["a","a","a","b","c","d"]
+var test = "Aemon"
+asd()
 
-print(lastname.unicodeScalars)
+func asd() {
+    guard let index = indexArr.index(of:"\(test.characters[test.startIndex])".lowercased()) else {
+        print(index)
+        return
+    }
+    print("없다")
+}
+
+
 
 //func makeChoseong(_target: String) ->String{
 //    var _out : String = ""
@@ -19,3 +28,4 @@ print(lastname.unicodeScalars)
 //    }
 //    return _out
 //}
+
