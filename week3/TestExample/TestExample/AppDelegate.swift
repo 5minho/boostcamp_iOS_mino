@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  ContactInformation
+//  TestExample
 //
-//  Created by 오민호 on 2017. 7. 19..
+//  Created by 오민호 on 2017. 7. 20..
 //  Copyright © 2017년 BoostCamp. All rights reserved.
 //
 
@@ -16,15 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = UIColor.white
-        let contactTableViewController = ContactTableViewController()
-        self.window?.rootViewController = contactTableViewController
-        
-        let initContacts = [Contact("김동민"),Contact("김민준"),Contact("김상민"),Contact("문진희"),Contact("박진주"),Contact("박현호"),Contact("서형숙"),Contact("엄중한"),Contact("오지예"),Contact("이민영"),Contact("이혜진"),Contact("이승준"),Contact("임경호"),Contact("장규범"),Contact("전수민"),Contact("최희석"),Contact("홍순찬"),Contact("황진섭")]
-        
-        contactTableViewController.contactList = initContacts
-        self.window?.makeKeyAndVisible()
         return true
     }
 
