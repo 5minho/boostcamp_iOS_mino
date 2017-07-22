@@ -17,6 +17,7 @@ class ItemsViewController : UITableViewController {
         itemsArrayClassifiedBy50Dollor = [ItemStore(empty: true), ItemStore(empty: true)]
         classifyBy50Dollor()
         
+        /* footer를 선택한 것도 좋은 방법입니다. 다른 방법은 없을까요? */
         let footerCell = UITableViewCell(style: .subtitle, reuseIdentifier: "UITableVuewCell")
         footerCell.heightAnchor.constraint(equalToConstant: 44).isActive = true
         footerCell.textLabel?.text = "No more items!"

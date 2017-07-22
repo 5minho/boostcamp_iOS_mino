@@ -54,8 +54,13 @@ class ItemsViewController : UITableViewController {
             let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             let cencelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             ac.addAction(cencelAction)
+            
+            /*
+             https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
+             문서의 Resolving Strong Reference Cycles for Closures 챕터 참고
+             */
             let deleteAction = UIAlertAction(title: "Remove", style: .destructive, handler: {
-                (action) -> Void in
+                [unowned self, tableView] (action) -> Void in
                 self.itemStore.removeItem(item: item)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             })
