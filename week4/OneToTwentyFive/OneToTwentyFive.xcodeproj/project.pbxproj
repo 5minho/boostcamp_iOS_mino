@@ -37,7 +37,7 @@
 		5AE16EF71F22F73700A90106 /* OneToTwentyFiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OneToTwentyFiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE16EFB1F22F73700A90106 /* OneToTwentyFiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneToTwentyFiveTests.swift; sourceTree = "<group>"; };
 		5AE16EFD1F22F73700A90106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5AF4331F1F25019100732417 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ../HomeViewController.swift; sourceTree = "<group>"; };
+		5AF4331F1F25019100732417 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
