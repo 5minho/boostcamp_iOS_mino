@@ -13,14 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let optionSet: UIControlState = [UIControlState.normal, UIControlState.disabled]
-        
-        optionSet.contains(.normal) // true
-        optionSet.contains(.highlighted) // false
-        
-        
-        
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
