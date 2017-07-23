@@ -8,6 +8,7 @@
 
 import UIKit
 
+/* 좋아요! Dictionary의 key로 사용하려면 Hashable 프로토콜을 준수해야하죠. 왜 그럴까요? */
 extension UIControlState: Hashable {
     public var hashValue: Int {
         return Int(self.rawValue)
@@ -68,6 +69,7 @@ class MinoButton : UIView {
     
     //MARK:- titlLabel Set up
     private func setUpLabel() {
+        /* backgroundImageView와 다르게 여기서 생성해주는 이유가 따로 있을까요? */
         self.titleLabel = UILabel()
         self.addSubview(titleLabel!)
         titleLabel?.textAlignment = .center
@@ -134,8 +136,10 @@ class MinoButton : UIView {
             return
         }
         guard let target = target as? NSObject else { return }
-        if let _ = actionsOfTarget[target] {
-            actionsOfTarget[target]?.insert(action)
+        
+        /* 권장하는 바는 아니지만 if var 도 사용할 수 있습니다 */
+        if var targetAction = actionsOfTarget[target] {
+            targetAction.insert(action)
             return
         }
         actionsOfTarget[target] = [action]
