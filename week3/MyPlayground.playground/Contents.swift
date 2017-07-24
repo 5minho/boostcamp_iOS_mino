@@ -3,4 +3,6 @@
 import Cocoa
 
 
-let array = Array<Int>(repeating: 4 , count: 5)
+var dateLabel = DateFormatter()
+dateLabel.timeStyle = .short
+dateLabel.date(from: "yy:mm:ss")

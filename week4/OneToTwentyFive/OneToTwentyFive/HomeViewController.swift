@@ -58,6 +58,8 @@ class HomeViewController : UIViewController {
         view.addConstraints(historyButtonConstraints())
     }
     
+    //MARK:- Target Method
+    
     @objc private func pushPlayViewController(_ button : UIButton) {
         self.navigationController?.pushViewController(playViewController, animated: true)
     }
@@ -65,6 +67,8 @@ class HomeViewController : UIViewController {
     @objc private func pushHistoryViewController(_ button : UIButton) {
         
     }
+    
+    //MARK:- Constraint
     
     private func titleConstraints() -> [NSLayoutConstraint] {
         let topConstraint = NSLayoutConstraint(item: titleLabel,
