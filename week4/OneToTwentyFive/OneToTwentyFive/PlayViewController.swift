@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayViewController: UIViewController {
-    private var level = 5
+    private var level = 2
     
     private var topRecodeLabel : UILabel! = {
         var topRecodeLabel = UILabel()
@@ -37,7 +37,6 @@ class PlayViewController: UIViewController {
     private var gameBoard : UIView! = {
         var gameBoard = UIView()
         gameBoard.translatesAutoresizingMaskIntoConstraints = false
-        
         return gameBoard
     }()
 
@@ -47,7 +46,6 @@ class PlayViewController: UIViewController {
         startButton.backgroundColor = UIColor.orange
         startButton.addTarget(self, action: #selector(start(_:)), for: .touchUpInside)
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        
         return startButton
     }()
 
@@ -56,7 +54,6 @@ class PlayViewController: UIViewController {
         return numberCells
     }()
     
-    //footerView 를 쓰는 화면이 많아서 재사용할 방법을 찾아보자
     private var footerView : UIView! = {
         var footerView = UIView()
         footerView.backgroundColor = UIColor.orange
@@ -78,10 +75,14 @@ class PlayViewController: UIViewController {
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         return historyButton
     }()
-    private var gameTimer : Timer!
     
+    private var gameTimer : Timer!
     private var elapsedTime : Int = 0
     private let space : CGFloat = 8.0
+    private var recordListSorted : [Record] = {
+        var recordListSorted = [Record]()
+        return recordListSorted
+    }()
     
     private var correctNumber = 1 {
         didSet {
@@ -89,7 +90,6 @@ class PlayViewController: UIViewController {
                 numberCells.forEach({$0.isHidden = false})
                 startButton.isHidden = false
                 gameTimer.invalidate()
-                elapsedTime = 0
                 correctNumber = 1
                 presentRecordAlert()
             }
@@ -100,7 +100,6 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(gameBoard)
         view.addConstraints(gameBoardContraints())
-        
         for row in 0 ..< level {
             for col in 0 ..< level {
                 let cell = UIButton()
@@ -112,7 +111,6 @@ class PlayViewController: UIViewController {
                 cell.addTarget(self, action: #selector(checkNumber(_:)), for: .touchUpInside)
             }
         }
-        
         view.addSubview(topRecodeLabel)
         view.addSubview(currentTopRecord)
         view.addSubview(elapsedTimeLabel)
@@ -120,8 +118,6 @@ class PlayViewController: UIViewController {
         footerView.addSubview(homeButton)
         footerView.addSubview(historyButton)
         view.addSubview(footerView)
-        
-        
         view.addConstraints(currentTopRecordConstraints())
         view.addConstraints(topRecodeLabelConstraints())
         view.addConstraints(elapsedTimeLabelConstraints())
@@ -129,7 +125,6 @@ class PlayViewController: UIViewController {
         view.addConstraints(footerViewConstraints())
         footerView.addConstraints(homeButtonConstraints())
         footerView.addConstraints(historyButtonConstraints())
-        updateNumberOfCell()
     }
     
     //MARK:- private Method
@@ -158,14 +153,15 @@ class PlayViewController: UIViewController {
         let message = "Enter your name"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
         let ok = UIAlertAction(title: "OK", style: .default) {
             [unowned self] (_) -> Void in
-            guard let nameField = alertController.textFields?.first,
-                let name = nameField.text,
-                let elpsedTime = self.elapsedTimeLabel?.text
-                else {return}
-            
-            self.currentTopRecord?.text = name + " " + elpsedTime
+            guard let nameField = alertController.textFields?.first, let name = nameField.text else {return}
+            let record = Record(who: name, when: Date(), record: self.elapsedTime)
+            self.elapsedTime = 0
+            self.recordListSorted.append(record)
+            self.recordListSorted.sort(by: <)
+            self.currentTopRecord?.text = self.recordListSorted[0].name + " " + self.recordListSorted[0].elapsedTimeFormatted()
         }
         
         alertController.addTextField(configurationHandler: {
@@ -179,7 +175,12 @@ class PlayViewController: UIViewController {
     //MARK:- Define Target Method
     
     @objc private func start(_ button : UIButton) {
-        gameTimer = Timer.scheduledTimer(timeInterval: 1 / 60, target: self, selector: #selector(updateElapsedTime), userInfo: nil, repeats: true)
+        updateNumberOfCell()
+        gameTimer = Timer.scheduledTimer(timeInterval: 1 / 60,
+                                         target: self,
+                                         selector: #selector(updateElapsedTime),
+                                         userInfo: nil,
+                                         repeats: true)
         button.isHidden = true
     }
     
@@ -198,6 +199,7 @@ class PlayViewController: UIViewController {
         if buttonNumber == correctNumber {
             button.isHidden = true
             correctNumber += 1
+            return
         }
         
         elapsedTime += 90
