@@ -27,7 +27,7 @@ class PlayViewController: UIViewController {
         return currentTopRecord
     }()
     
-    private var timeFlowLabel : UILabel! = {
+    private var elapsedTimeLabel : UILabel! = {
         var timeFlowLabel = UILabel()
         timeFlowLabel.text = "00:00:00"
         timeFlowLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,9 +78,22 @@ class PlayViewController: UIViewController {
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         return historyButton
     }()
+    private var gameTimer : Timer!
     
-    private var time : Int = 0
+    private var elapsedTime : Int = 0
     private let space : CGFloat = 8.0
+    
+    private var correctNumber = 1 {
+        didSet {
+            if isEndedGame() {
+                numberCells.forEach({$0.isHidden = false})
+                startButton.isHidden = false
+                gameTimer.invalidate()
+                elapsedTime = 0
+                presentRecordAlert()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +114,7 @@ class PlayViewController: UIViewController {
         
         view.addSubview(topRecodeLabel)
         view.addSubview(currentTopRecord)
-        view.addSubview(timeFlowLabel)
+        view.addSubview(elapsedTimeLabel)
         view.addSubview(startButton)
         footerView.addSubview(homeButton)
         footerView.addSubview(historyButton)
@@ -110,13 +123,15 @@ class PlayViewController: UIViewController {
         
         view.addConstraints(currentTopRecordConstraints())
         view.addConstraints(topRecodeLabelConstraints())
-        view.addConstraints(timeFlowLabelConstraints())
+        view.addConstraints(elapsedTimeLabelConstraints())
         view.addConstraints(startButtonConstraints())
         view.addConstraints(footerViewConstraints())
         footerView.addConstraints(homeButtonConstraints())
         footerView.addConstraints(historyButtonConstraints())
         updateNumberOfCell()
     }
+    
+    //MARK:- private Method
     
     private func updateNumberOfCell() {
         let randomNumberList = makeRandomNumberList(to : level * level)
@@ -133,25 +148,58 @@ class PlayViewController: UIViewController {
         return Array(randomNumberSet)
     }
     
+    private func isEndedGame() -> Bool{
+        return correctNumber == (level * level + 1)
+    }
+    
+    private func presentRecordAlert() {
+        let title = "Clear!"
+        let message = "Enter your name"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let ok = UIAlertAction(title: "OK", style: .default) {
+            [unowned self] (_) -> Void in
+            guard let nameField = alertController.textFields?.first,
+                let name = nameField.text,
+                let elpsedTime = self.elapsedTimeLabel?.text
+                else {return}
+            
+            self.currentTopRecord?.text = name + " " + elpsedTime
+        }
+        
+        alertController.addTextField(configurationHandler: {
+            $0.placeholder = "Enter your name"
+        })
+        alertController.addAction(cancel)
+        alertController.addAction(ok)
+        present(alertController, animated: false, completion: nil)
+    }
+    
     //MARK:- Define Target Method
     
     @objc private func start(_ button : UIButton) {
-        Timer.scheduledTimer(timeInterval: 1 / 60, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-        
+        gameTimer = Timer.scheduledTimer(timeInterval: 1 / 60, target: self, selector: #selector(updateElapsedTime), userInfo: nil, repeats: true)
         button.isHidden = true
-        button.isUserInteractionEnabled = false
     }
     
-    @objc private func updateTime() {
-        time += 1
-        let secondbySixty = time % 60
-        let seconds = (time / 60) % 60
-        let minites = time  / 3600
-        timeFlowLabel.text = String(format: "%02d:%02d:%02d", minites, seconds, secondbySixty)
+    @objc private func updateElapsedTime() {
+        elapsedTime += 1
+        let secondbySixty = elapsedTime % 60
+        let seconds = (elapsedTime / 60) % 60
+        let minites = elapsedTime  / 3600
+        elapsedTimeLabel.text = String(format: "%02d:%02d:%02d", minites, seconds, secondbySixty)
     }
     
     @objc private func checkNumber(_ button : UIButton) {
-        button.isHidden = true
+        guard let title = button.currentTitle, let buttonNumber = Int(title) else {
+            return
+        }
+        if buttonNumber == correctNumber {
+            button.isHidden = true
+            correctNumber += 1
+        }
+        
+        elapsedTime += 90
     }
     
     @objc private func returnHomeScreen (_ button : UIButton) {
@@ -200,8 +248,8 @@ class PlayViewController: UIViewController {
         return [bottomConstraint, leadingConstraint]
     }
     
-    private func timeFlowLabelConstraints() -> [NSLayoutConstraint] {
-        let bottomConstraint = NSLayoutConstraint(item: timeFlowLabel,
+    private func elapsedTimeLabelConstraints() -> [NSLayoutConstraint] {
+        let bottomConstraint = NSLayoutConstraint(item: elapsedTimeLabel,
                                                   attribute: .bottom,
                                                   relatedBy: .equal,
                                                   toItem: gameBoard,
@@ -209,7 +257,7 @@ class PlayViewController: UIViewController {
                                                   multiplier: 1,
                                                   constant: -space)
         
-        let trailingConstraint = NSLayoutConstraint(item: timeFlowLabel,
+        let trailingConstraint = NSLayoutConstraint(item: elapsedTimeLabel,
                                                    attribute: .trailing,
                                                    relatedBy: .equal,
                                                    toItem: view,
