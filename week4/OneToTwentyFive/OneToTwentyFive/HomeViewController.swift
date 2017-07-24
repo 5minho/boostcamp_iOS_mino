@@ -58,11 +58,11 @@ class HomeViewController : UIViewController {
         view.addConstraints(historyButtonConstraints())
     }
     
-    func pushPlayViewController(_ button : UIButton) {
+    @objc private func pushPlayViewController(_ button : UIButton) {
         self.navigationController?.pushViewController(playViewController, animated: true)
     }
     
-    func pushHistoryViewController(_ button : UIButton) {
+    @objc private func pushHistoryViewController(_ button : UIButton) {
         
     }
     
