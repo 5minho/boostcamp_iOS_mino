@@ -12,15 +12,19 @@ class ItemsViewController : UITableViewController {
     var itemStore: ItemStore!
     @IBOutlet weak var footerCell: UIView!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         footerCell.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = insets
-        tableView.scrollIndicatorInsets = insets
+//        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+//        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
+//        tableView.contentInset = insets
+//        tableView.scrollIndicatorInsets = insets
 //        tableView.rowHeight = 65
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 65
@@ -81,6 +85,11 @@ class ItemsViewController : UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     @IBAction func addNewItem(_ sender: Any) {
         let newItem = itemStore.createItem()
         if let index = itemStore.allItems.index(of: newItem) {
@@ -88,14 +97,14 @@ class ItemsViewController : UITableViewController {
             self.tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
-    
-    @IBAction func toggleEditingMode(_ sender: UIButton) {
-        if isEditing {
-            sender.setTitle("Edit", for: .normal)
-            setEditing(false, animated: true)
-        } else {
-            sender.setTitle("Done", for: .normal)
-            setEditing(true, animated: true)
-        }
-    }
+//    
+//    @IBAction func toggleEditingMode(_ sender: UIButton) {
+//        if isEditing {
+//            sender.setTitle("Edit", for: .normal)
+//            setEditing(false, animated: true)
+//        } else {
+//            sender.setTitle("Done", for: .normal)
+//            setEditing(true, animated: true)
+//        }
+//    }
 }

@@ -29,7 +29,12 @@ class DetailViewController : UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
-    var item: Item!
+    
+    var item: Item!  {
+        didSet {
+            navigationItem.title = item.name
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,5 +46,28 @@ class DetailViewController : UIViewController {
         dateLabel.text = dateFormatter.string(from: item.dateCreated as Date)
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+        item.name = nameField.text ?? ""
+        item.serialNumber = serialNumberField.text
+        
+        if let valueText = valueField.text,
+            let value = numberFormatter.number(from: valueText) {
+            item.valueInDollars = value.intValue
+        } else {
+            item.valueInDollars = 0
+        }
+    }
+    @IBAction func backgroungTapped(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+}
+
+extension DetailViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
