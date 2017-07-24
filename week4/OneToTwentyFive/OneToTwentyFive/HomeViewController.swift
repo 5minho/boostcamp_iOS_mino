@@ -40,12 +40,17 @@ class HomeViewController : UIViewController {
         return historyButton
     }()
     
-    private lazy var playViewController = { () -> PlayViewController in
+    private lazy var playViewController = {
+        () -> PlayViewController in
         let playViewController = PlayViewController()
         return playViewController
     }()
     
-//    lazy var historyViewController
+    private lazy var historyViewContreoller = {
+        () -> HistoryViewController in
+        let historyViewContreoller = HistoryViewController()
+        return historyViewContreoller
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +70,7 @@ class HomeViewController : UIViewController {
     }
     
     @objc private func pushHistoryViewController(_ button : UIButton) {
-        
+        self.navigationController?.pushViewController(historyViewContreoller, animated: true)
     }
     
     //MARK:- Constraint
