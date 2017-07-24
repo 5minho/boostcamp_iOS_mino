@@ -90,6 +90,7 @@ class PlayViewController: UIViewController {
                 startButton.isHidden = false
                 gameTimer.invalidate()
                 elapsedTime = 0
+                correctNumber = 1
                 presentRecordAlert()
             }
         }
