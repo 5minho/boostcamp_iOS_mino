@@ -15,8 +15,8 @@ class Record : NSObject {
     
     private let dateFormatter : DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
+        formatter.dateStyle = .long
+        formatter.timeStyle = .medium
         return formatter
     }()
     

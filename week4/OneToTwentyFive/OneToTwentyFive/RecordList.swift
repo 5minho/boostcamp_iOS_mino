@@ -18,6 +18,9 @@ class RecordList {
     }
     
     open var first : Record? {
+        if recordList.isEmpty {
+            return nil
+        }
         return recordList[0]
     }
     open var count : Int {

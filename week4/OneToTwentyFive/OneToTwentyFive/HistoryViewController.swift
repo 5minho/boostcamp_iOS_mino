@@ -58,6 +58,11 @@ class HistoryViewController : UIViewController {
         footerView.addConstraints(closeButtonConstraints())
         footerView.addConstraints(resetButtonConstraints())
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 }
 
 //MARK:- autoLayout & target method

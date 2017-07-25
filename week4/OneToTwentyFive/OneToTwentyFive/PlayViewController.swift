@@ -133,10 +133,25 @@ class PlayViewController: UIViewController {
         footerView.addConstraints(homeButtonConstraints())
         footerView.addConstraints(historyButtonConstraints())
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCurrentTopRecord()
+    }
 }
 
 //MARK:-  internal Method
 extension PlayViewController {
+    
+    fileprivate func updateCurrentTopRecord() {
+        guard let name = recordList.first?.name , let elapsedTime = recordList.first?.elapsedTimeFormatted() else {
+            currentTopRecord?.text = "- --:--:--"
+            elapsedTimeLabel?.text = "00:00:00"
+            return
+        }
+        currentTopRecord?.text = name + " " + elapsedTime
+    }
+    
     fileprivate func updateNumberOfCell() {
         let randomNumberList = makeRandomNumberList(to : level * level)
         for idx in 0..<level * level{
@@ -168,7 +183,7 @@ extension PlayViewController {
             let record = Record(who: name, when: Date(), record: self.elapsedTime)
             self.elapsedTime = 0
             self.recordList.append(record)
-            self.currentTopRecord?.text = (self.recordList.first?.name)! + " " + (self.recordList.first?.elapsedTimeFormatted())!
+            self.updateCurrentTopRecord()
             self.historyViewContreoller.recordList = self.recordList
         }
         
