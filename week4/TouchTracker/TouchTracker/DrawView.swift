@@ -8,6 +8,8 @@
 
 import UIKit
 
+/* 주석처리된 코드의 정리가 필요해보입니다 */
+
 class DrawView : UIView {
 //    var currentLine : Line?
     var currentLines = [NSValue:Line]()
