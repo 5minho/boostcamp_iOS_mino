@@ -10,12 +10,19 @@ import UIKit
 
 class Record {
     let name : String
-    let dateRecorded : Date
+    let dateRecorded : String
     let elapsedTime : Int
+    
+    private let dateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
     
     init(who name : String, when dateRecorded : Date, record elapsedTime : Int) {
         self.name = name
-        self.dateRecorded = dateRecorded
+        self.dateRecorded = dateFormatter.string(from: dateRecorded)
         self.elapsedTime = elapsedTime
     }
     
@@ -25,6 +32,7 @@ class Record {
         let minites = elapsedTime  / 3600
         return String(format: "%02d:%02d:%02d", minites, seconds, secondbySixty)
     }
+    
     
 }
 

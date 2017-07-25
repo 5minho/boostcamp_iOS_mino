@@ -72,6 +72,7 @@ class PlayViewController: UIViewController {
     private var historyButton : UIButton! = {
         var historyButton = UIButton()
         historyButton.setTitle("HISTORY", for: .normal)
+        historyButton.addTarget(self, action: #selector(goHistoryScreen(_:)), for: .touchUpInside)
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         return historyButton
     }()
@@ -79,9 +80,9 @@ class PlayViewController: UIViewController {
     private var gameTimer : Timer!
     private var elapsedTime : Int = 0
     private let space : CGFloat = 8.0
-    private var recordListSorted : [Record] = {
-        var recordListSorted = [Record]()
-        return recordListSorted
+    private var recordList : [Record] = {
+        var recordList = [Record]()
+        return recordList
     }()
     
     private var correctNumber = 1 {
@@ -95,6 +96,12 @@ class PlayViewController: UIViewController {
             }
         }
     }
+    
+    private lazy var historyViewContreoller = {
+        () -> HistoryViewController in
+        let historyViewContreoller = HistoryViewController()
+        return historyViewContreoller
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,9 +166,10 @@ class PlayViewController: UIViewController {
             guard let nameField = alertController.textFields?.first, let name = nameField.text else {return}
             let record = Record(who: name, when: Date(), record: self.elapsedTime)
             self.elapsedTime = 0
-            self.recordListSorted.append(record)
-            self.recordListSorted.sort(by: <)
-            self.currentTopRecord?.text = self.recordListSorted[0].name + " " + self.recordListSorted[0].elapsedTimeFormatted()
+            self.recordList.append(record)
+            self.recordList.sort(by: <)
+            self.currentTopRecord?.text = self.recordList[0].name + " " + self.recordList[0].elapsedTimeFormatted()
+            self.historyViewContreoller.recordList = self.recordList
         }
         
         alertController.addTextField(configurationHandler: {
@@ -209,6 +217,9 @@ class PlayViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc private func goHistoryScreen (_ button : UIButton) {
+        navigationController?.pushViewController(historyViewContreoller, animated: true)
+    }
     
     
     //MARK:- Define Constraint

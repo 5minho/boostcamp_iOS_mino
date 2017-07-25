@@ -23,7 +23,7 @@ class HomeViewController : UIViewController {
         playButton.setTitle("PLAY", for: .normal)
         playButton.backgroundColor = UIColor.orange
         playButton.addTarget(self,
-                             action: #selector(pushPlayViewController(_:)),
+                             action: #selector(goPlayScreen(_:)),
                              for: .touchUpInside)
         playButton.translatesAutoresizingMaskIntoConstraints = false
         return playButton
@@ -34,7 +34,7 @@ class HomeViewController : UIViewController {
         historyButton.setTitle("HISTORY", for: .normal)
         historyButton.backgroundColor = UIColor.orange
         historyButton.addTarget(self,
-                                action: #selector(pushHistoryViewController(_:)),
+                                action: #selector(goHistoryScreen(_:)),
                                 for: .touchUpInside)
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         return historyButton
@@ -65,11 +65,11 @@ class HomeViewController : UIViewController {
     
     //MARK:- Target Method
     
-    @objc private func pushPlayViewController(_ button : UIButton) {
+    @objc private func goPlayScreen(_ button : UIButton) {
         self.navigationController?.pushViewController(playViewController, animated: true)
     }
     
-    @objc private func pushHistoryViewController(_ button : UIButton) {
+    @objc private func goHistoryScreen(_ button : UIButton) {
         self.navigationController?.pushViewController(historyViewContreoller, animated: true)
     }
     

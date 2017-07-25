@@ -3,6 +3,14 @@
 import Cocoa
 
 
-var dateLabel = DateFormatter()
-dateLabel.timeStyle = .short
-dateLabel.date(from: "yy:mm:ss")
+class Test {
+    var a : Int = 5 {
+        didSet {
+            a = 3
+            print(a)
+        }
+    }
+}
+
+var test = Test()
+test.a = 5
