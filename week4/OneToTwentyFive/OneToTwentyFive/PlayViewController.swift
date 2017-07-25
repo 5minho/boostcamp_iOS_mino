@@ -8,10 +8,11 @@
 
 import UIKit
 
+//MARK:- properties and viewcontroller lifecycle
 class PlayViewController: UIViewController {
-    private var level = 2
+    fileprivate var level = 2
     
-    private var topRecodeLabel : UILabel! = {
+    fileprivate var topRecodeLabel : UILabel! = {
         var topRecodeLabel = UILabel()
         topRecodeLabel.text = "최고기록"
         topRecodeLabel.textColor = UIColor.green
@@ -19,7 +20,7 @@ class PlayViewController: UIViewController {
         return topRecodeLabel
     }()
     
-    private var currentTopRecord : UILabel! = {
+    fileprivate var currentTopRecord : UILabel! = {
         var currentTopRecord = UILabel()
         currentTopRecord.text = "- --:--:--"
         currentTopRecord.textColor = UIColor.green
@@ -27,20 +28,20 @@ class PlayViewController: UIViewController {
         return currentTopRecord
     }()
     
-    private var elapsedTimeLabel : UILabel! = {
+    fileprivate var elapsedTimeLabel : UILabel! = {
         var timeFlowLabel = UILabel()
         timeFlowLabel.text = "00:00:00"
         timeFlowLabel.translatesAutoresizingMaskIntoConstraints = false
         return timeFlowLabel
     }()
     
-    private var gameBoard : UIView! = {
+    fileprivate var gameBoard : UIView! = {
         var gameBoard = UIView()
         gameBoard.translatesAutoresizingMaskIntoConstraints = false
         return gameBoard
     }()
 
-    private var startButton : UIButton! = {
+    fileprivate var startButton : UIButton! = {
         var startButton = UIButton(type: .system)
         startButton.setTitle("PRESS TO START", for: .normal)
         startButton.backgroundColor = UIColor.orange
@@ -49,19 +50,19 @@ class PlayViewController: UIViewController {
         return startButton
     }()
 
-    private var numberCells : [UIButton]! = {
+    fileprivate var numberCells : [UIButton]! = {
         var numberCells = [UIButton]()
         return numberCells
     }()
     
-    private var footerView : UIView! = {
+    fileprivate var footerView : UIView! = {
         var footerView = UIView()
         footerView.backgroundColor = UIColor.orange
         footerView.translatesAutoresizingMaskIntoConstraints = false
         return footerView
     }()
     
-    private var homeButton : UIButton! = {
+    fileprivate var homeButton : UIButton! = {
         var homeButton = UIButton()
         homeButton.setTitle("HOME", for: .normal)
         homeButton.addTarget(self, action: #selector(returnHomeScreen(_:)), for: .touchUpInside)
@@ -69,7 +70,7 @@ class PlayViewController: UIViewController {
         return homeButton
     }()
     
-    private var historyButton : UIButton! = {
+    fileprivate var historyButton : UIButton! = {
         var historyButton = UIButton()
         historyButton.setTitle("HISTORY", for: .normal)
         historyButton.addTarget(self, action: #selector(goHistoryScreen(_:)), for: .touchUpInside)
@@ -77,13 +78,11 @@ class PlayViewController: UIViewController {
         return historyButton
     }()
     
-    private var gameTimer : Timer!
-    private var elapsedTime : Int = 0
-    private let space : CGFloat = 8.0
-    
-    private var recordList : RecordList = RecordList()
-    
-    private var correctNumber = 1 {
+    fileprivate var gameTimer : Timer!
+    fileprivate var elapsedTime : Int = 0
+    fileprivate let space : CGFloat = 8.0
+    fileprivate var recordList : RecordList = RecordList()
+    fileprivate var correctNumber = 1 {
         didSet {
             if isEndedGame() {
                 numberCells.forEach({$0.isHidden = false})
@@ -95,7 +94,7 @@ class PlayViewController: UIViewController {
         }
     }
     
-    private lazy var historyViewContreoller = {
+    fileprivate lazy var historyViewContreoller = {
         () -> HistoryViewController in
         let historyViewContreoller = HistoryViewController()
         return historyViewContreoller
@@ -104,6 +103,7 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        view.backgroundColor = UIColor.white
         recordList = appDelegate.recordList
         view.addSubview(gameBoard)
         view.addConstraints(gameBoardContraints())
@@ -133,17 +133,18 @@ class PlayViewController: UIViewController {
         footerView.addConstraints(homeButtonConstraints())
         footerView.addConstraints(historyButtonConstraints())
     }
-    
-    //MARK:- private Method
-    
-    private func updateNumberOfCell() {
+}
+
+//MARK:-  internal Method
+extension PlayViewController {
+    fileprivate func updateNumberOfCell() {
         let randomNumberList = makeRandomNumberList(to : level * level)
         for idx in 0..<level * level{
             numberCells[idx].setTitle("\(randomNumberList[idx])", for: .normal)
         }
     }
     
-    private func makeRandomNumberList(to upperBound: Int) -> [Int] {
+    fileprivate func makeRandomNumberList(to upperBound: Int) -> [Int] {
         var randomNumberSet = Set<Int>()
         while randomNumberSet.count != (upperBound) {
             randomNumberSet.insert(Int(arc4random_uniform(UInt32(upperBound))) + 1)
@@ -151,11 +152,11 @@ class PlayViewController: UIViewController {
         return Array(randomNumberSet)
     }
     
-    private func isEndedGame() -> Bool{
+    fileprivate func isEndedGame() -> Bool{
         return correctNumber == (level * level + 1)
     }
     
-    private func presentRecordAlert() {
+    fileprivate func presentRecordAlert() {
         let title = "Clear!"
         let message = "Enter your name"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -167,8 +168,6 @@ class PlayViewController: UIViewController {
             let record = Record(who: name, when: Date(), record: self.elapsedTime)
             self.elapsedTime = 0
             self.recordList.append(record)
-            self.recordList.sort()
-            //수정 필요
             self.currentTopRecord?.text = (self.recordList.first?.name)! + " " + (self.recordList.first?.elapsedTimeFormatted())!
             self.historyViewContreoller.recordList = self.recordList
         }
@@ -180,10 +179,12 @@ class PlayViewController: UIViewController {
         alertController.addAction(ok)
         present(alertController, animated: false, completion: nil)
     }
-    
-    //MARK:- Define Target Method
-    
-    @objc private func start(_ button : UIButton) {
+
+}
+
+//MARK:- Define Target Method
+extension PlayViewController {
+    @objc fileprivate func start(_ button : UIButton) {
         updateNumberOfCell()
         gameTimer = Timer.scheduledTimer(timeInterval: 1 / 60,
                                          target: self,
@@ -193,7 +194,7 @@ class PlayViewController: UIViewController {
         button.isHidden = true
     }
     
-    @objc private func updateElapsedTime() {
+    @objc fileprivate func updateElapsedTime() {
         elapsedTime += 1
         let secondbySixty = elapsedTime % 60
         let seconds = (elapsedTime / 60) % 60
@@ -201,7 +202,7 @@ class PlayViewController: UIViewController {
         elapsedTimeLabel.text = String(format: "%02d:%02d:%02d", minites, seconds, secondbySixty)
     }
     
-    @objc private func checkNumber(_ button : UIButton) {
+    @objc fileprivate func checkNumber(_ button : UIButton) {
         guard let title = button.currentTitle, let buttonNumber = Int(title) else {
             return
         }
@@ -214,25 +215,26 @@ class PlayViewController: UIViewController {
         elapsedTime += 90
     }
     
-    @objc private func returnHomeScreen (_ button : UIButton) {
+    @objc fileprivate func returnHomeScreen (_ button : UIButton) {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func goHistoryScreen (_ button : UIButton) {
+    @objc fileprivate func goHistoryScreen (_ button : UIButton) {
         navigationController?.pushViewController(historyViewContreoller, animated: true)
     }
-    
-    
-    //MARK:- Define Constraint
-    
-    private func topRecodeLabelConstraints() -> [NSLayoutConstraint] {
+
+}
+
+//MARK:- Define Constraint
+extension PlayViewController {
+    fileprivate func topRecodeLabelConstraints() -> [NSLayoutConstraint] {
         let bottomConstraint = NSLayoutConstraint(item: topRecodeLabel,
-                                               attribute: .bottom,
-                                               relatedBy: .equal,
-                                               toItem: currentTopRecord,
-                                               attribute: .top,
-                                               multiplier: 1,
-                                               constant: -space)
+                                                  attribute: .bottom,
+                                                  relatedBy: .equal,
+                                                  toItem: currentTopRecord,
+                                                  attribute: .top,
+                                                  multiplier: 1,
+                                                  constant: -space)
         let leadingConstraint = NSLayoutConstraint(item: topRecodeLabel,
                                                    attribute: .leading,
                                                    relatedBy: .equal,
@@ -242,8 +244,7 @@ class PlayViewController: UIViewController {
                                                    constant: space)
         return [bottomConstraint, leadingConstraint]
     }
-    
-    private func currentTopRecordConstraints() -> [NSLayoutConstraint] {
+    fileprivate func currentTopRecordConstraints() -> [NSLayoutConstraint] {
         let bottomConstraint = NSLayoutConstraint(item: currentTopRecord,
                                                   attribute: .bottom,
                                                   relatedBy: .equal,
@@ -263,7 +264,7 @@ class PlayViewController: UIViewController {
         return [bottomConstraint, leadingConstraint]
     }
     
-    private func elapsedTimeLabelConstraints() -> [NSLayoutConstraint] {
+    fileprivate func elapsedTimeLabelConstraints() -> [NSLayoutConstraint] {
         let bottomConstraint = NSLayoutConstraint(item: elapsedTimeLabel,
                                                   attribute: .bottom,
                                                   relatedBy: .equal,
@@ -273,17 +274,17 @@ class PlayViewController: UIViewController {
                                                   constant: -space)
         
         let trailingConstraint = NSLayoutConstraint(item: elapsedTimeLabel,
-                                                   attribute: .trailing,
-                                                   relatedBy: .equal,
-                                                   toItem: view,
-                                                   attribute: .trailing,
-                                                   multiplier: 1,
-                                                   constant: -space)
+                                                    attribute: .trailing,
+                                                    relatedBy: .equal,
+                                                    toItem: view,
+                                                    attribute: .trailing,
+                                                    multiplier: 1,
+                                                    constant: -space)
         
         return [bottomConstraint, trailingConstraint]
     }
     
-    private func startButtonConstraints() -> [NSLayoutConstraint] {
+    fileprivate func startButtonConstraints() -> [NSLayoutConstraint] {
         let topConstraint = NSLayoutConstraint(item: startButton,
                                                attribute: .top,
                                                relatedBy: .equal,
@@ -292,37 +293,37 @@ class PlayViewController: UIViewController {
                                                multiplier: 1,
                                                constant: 0)
         let leadingConstraint = NSLayoutConstraint(item: startButton,
-                                               attribute: .leading,
-                                               relatedBy: .equal,
-                                               toItem: gameBoard,
-                                               attribute: .leading,
-                                               multiplier: 1,
-                                               constant: 0)
+                                                   attribute: .leading,
+                                                   relatedBy: .equal,
+                                                   toItem: gameBoard,
+                                                   attribute: .leading,
+                                                   multiplier: 1,
+                                                   constant: 0)
         let trailingConstraint = NSLayoutConstraint(item: startButton,
-                                               attribute: .trailing,
-                                               relatedBy: .equal,
-                                               toItem: gameBoard,
-                                               attribute: .trailing,
-                                               multiplier: 1,
-                                               constant: 0)
+                                                    attribute: .trailing,
+                                                    relatedBy: .equal,
+                                                    toItem: gameBoard,
+                                                    attribute: .trailing,
+                                                    multiplier: 1,
+                                                    constant: 0)
         let heightConstraint = NSLayoutConstraint(item: startButton,
-                                               attribute: .height,
-                                               relatedBy: .equal,
-                                               toItem: gameBoard,
-                                               attribute: .width,
-                                               multiplier: 1,
-                                               constant: 0)
+                                                  attribute: .height,
+                                                  relatedBy: .equal,
+                                                  toItem: gameBoard,
+                                                  attribute: .width,
+                                                  multiplier: 1,
+                                                  constant: 0)
         return [topConstraint, leadingConstraint, trailingConstraint, heightConstraint]
     }
     
-    private func gameBoardContraints() -> [NSLayoutConstraint] {
+    fileprivate func gameBoardContraints() -> [NSLayoutConstraint] {
         let widthConstraint = NSLayoutConstraint(item: gameBoard,
-                                                  attribute: .width,
-                                                  relatedBy: .equal,
-                                                  toItem: gameBoard,
-                                                  attribute: .height,
-                                                  multiplier: 1,
-                                                  constant: 0)
+                                                 attribute: .width,
+                                                 relatedBy: .equal,
+                                                 toItem: gameBoard,
+                                                 attribute: .height,
+                                                 multiplier: 1,
+                                                 constant: 0)
         let heightConstraint = NSLayoutConstraint(item: gameBoard,
                                                   attribute: .height,
                                                   relatedBy: .equal,
@@ -347,7 +348,7 @@ class PlayViewController: UIViewController {
         return [widthConstraint, heightConstraint, centerXConstraint, centerYConstraint]
     }
     
-    private func cellConstraints(of cell : UIButton, row: Int, col : Int) -> [NSLayoutConstraint] {
+    fileprivate func cellConstraints(of cell : UIButton, row: Int, col : Int) -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         
         if (row == 0) {
@@ -361,20 +362,20 @@ class PlayViewController: UIViewController {
             constraints += [topConstraint]
             if col == 0 {
                 let leadingConstraint = NSLayoutConstraint(item: cell,
-                                                       attribute: .leading,
-                                                       relatedBy: .equal,
-                                                       toItem: gameBoard,
-                                                       attribute: .leading,
-                                                       multiplier: 1,
-                                                       constant: space)
+                                                           attribute: .leading,
+                                                           relatedBy: .equal,
+                                                           toItem: gameBoard,
+                                                           attribute: .leading,
+                                                           multiplier: 1,
+                                                           constant: space)
                 
                 let widthConstraint = NSLayoutConstraint(item: cell,
-                                                     attribute: .width,
-                                                     relatedBy: .equal,
-                                                     toItem: cell,
-                                                     attribute: .height,
-                                                     multiplier: 1,
-                                                     constant: 0)
+                                                         attribute: .width,
+                                                         relatedBy: .equal,
+                                                         toItem: cell,
+                                                         attribute: .height,
+                                                         multiplier: 1,
+                                                         constant: 0)
                 constraints += [leadingConstraint, widthConstraint]
             } else {
                 let leadingConstraint = NSLayoutConstraint(item: cell,
@@ -412,7 +413,7 @@ class PlayViewController: UIViewController {
                     constraints += [trailingConstraint]
                 }
             }
-         }
+        }
         else {
             let topConstraint = NSLayoutConstraint(item: cell,
                                                    attribute: .top,
@@ -433,12 +434,12 @@ class PlayViewController: UIViewController {
                                                            constant: space)
                 
                 let widthConstraint = NSLayoutConstraint(item: cell,
-                                                       attribute: .width,
-                                                       relatedBy: .equal,
-                                                       toItem: cell,
-                                                       attribute: .height,
-                                                       multiplier: 1,
-                                                       constant: 0)
+                                                         attribute: .width,
+                                                         relatedBy: .equal,
+                                                         toItem: cell,
+                                                         attribute: .height,
+                                                         multiplier: 1,
+                                                         constant: 0)
                 
                 constraints += [leadingConstraint, widthConstraint]
             } else {
@@ -480,20 +481,20 @@ class PlayViewController: UIViewController {
                     constraints += [trailingConstraint]
                 }
             }
-        
+            
         }
         
         return constraints
     }
     
-    private func footerViewConstraints() -> [NSLayoutConstraint] {
+    fileprivate func footerViewConstraints() -> [NSLayoutConstraint] {
         let topConstraint = NSLayoutConstraint(item: footerView,
-                                                  attribute: .top,
-                                                  relatedBy: .equal,
-                                                  toItem: view,
-                                                  attribute: .bottom,
-                                                  multiplier: 1,
-                                                  constant: -60)
+                                               attribute: .top,
+                                               relatedBy: .equal,
+                                               toItem: view,
+                                               attribute: .bottom,
+                                               multiplier: 1,
+                                               constant: -60)
         let bottomConstraint = NSLayoutConstraint(item: footerView,
                                                   attribute: .bottom,
                                                   relatedBy: .equal,
@@ -502,17 +503,17 @@ class PlayViewController: UIViewController {
                                                   multiplier: 1,
                                                   constant: 0)
         let widthConstraint = NSLayoutConstraint(item: footerView,
-                                                attribute: .width,
-                                                relatedBy: .equal,
-                                                toItem: view,
-                                                attribute: .width,
-                                                multiplier: 1,
-                                                constant: 0)
-      
-       return [topConstraint,bottomConstraint, widthConstraint]
+                                                 attribute: .width,
+                                                 relatedBy: .equal,
+                                                 toItem: view,
+                                                 attribute: .width,
+                                                 multiplier: 1,
+                                                 constant: 0)
+        
+        return [topConstraint,bottomConstraint, widthConstraint]
     }
     
-    private func homeButtonConstraints() -> [NSLayoutConstraint] {
+    fileprivate func homeButtonConstraints() -> [NSLayoutConstraint] {
         let centerYConstraint = NSLayoutConstraint(item: homeButton,
                                                    attribute: .centerY,
                                                    relatedBy: .equal,
@@ -537,7 +538,7 @@ class PlayViewController: UIViewController {
         return [centerYConstraint, centerXConstraint, heightConstrinat]
     }
     
-    private func historyButtonConstraints() -> [NSLayoutConstraint] {
+    fileprivate func historyButtonConstraints() -> [NSLayoutConstraint] {
         let centerYConstraint = NSLayoutConstraint(item: historyButton,
                                                    attribute: .centerY,
                                                    relatedBy: .equal,
@@ -561,5 +562,6 @@ class PlayViewController: UIViewController {
                                                   constant: 0)
         return [centerYConstraint, centerXConstraint, heightConstrinat]
     }
+   
 }
 

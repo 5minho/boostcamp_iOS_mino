@@ -9,7 +9,13 @@
 import UIKit
 
 class RecordList {
-    private var recordList : [Record] = []
+    fileprivate var recordList : [Record] = []
+    
+    init() {
+        if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Record] {
+            recordList += archivedItems
+        }
+    }
     
     open var first : Record? {
         return recordList[0]
@@ -20,29 +26,32 @@ class RecordList {
     
     open func append(_ newRecode : Record) {
         recordList.append(newRecode)
-    }
-    
-    open func sort() {
         recordList.sort(by: <)
     }
+
     open func index(at : Int) -> Record{
         return recordList[at]
     }
     
-    private let itemArchiveURL : URL = {
+    open func clear() {
+        recordList.removeAll()
+    }
+    
+    open func isEmpty() -> Bool {
+        return recordList.isEmpty
+    }
+    
+    fileprivate let itemArchiveURL : URL = {
         let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = documentsDirectories.first!
         return documentDirectory.appendingPathComponent("items.archive")
     }()
     
+}
+
+extension RecordList {
     open func saveChanges() -> Bool {
         print("Saving items to: \(itemArchiveURL.path)")
         return NSKeyedArchiver.archiveRootObject(recordList, toFile: itemArchiveURL.path)
-    }
-    
-    init() {
-        if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Record] {
-            recordList += archivedItems
-        }
     }
 }
