@@ -13,7 +13,8 @@ class HistoryViewController : UITableViewController {
     let cellId = "RecordCell"
     
     override func viewDidLoad() {
-        //tableView.register(UITableViewCell(, forCellReuseIdentifier: cellId)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        recordList = appDelegate.recordList
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,6 +28,7 @@ class HistoryViewController : UITableViewController {
             }
             return cell
         }()
+        
         let record = recordList.index(at: indexPath.row)
         cell.textLabel?.text = record.elapsedTimeFormatted()
         cell.detailTextLabel?.text = record.name + " " + record.dateRecorded

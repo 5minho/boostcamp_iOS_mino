@@ -81,10 +81,7 @@ class PlayViewController: UIViewController {
     private var elapsedTime : Int = 0
     private let space : CGFloat = 8.0
     
-    private var recordList : RecordList = {
-        var recordList = RecordList()
-        return recordList
-    }()
+    private var recordList : RecordList = RecordList()
     
     private var correctNumber = 1 {
         didSet {
@@ -106,6 +103,8 @@ class PlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        recordList = appDelegate.recordList
         view.addSubview(gameBoard)
         view.addConstraints(gameBoardContraints())
         for row in 0 ..< level {
