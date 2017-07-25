@@ -16,6 +16,7 @@
 		5A5FDC831F17E1DE00E4E7CF /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FDC821F17E1DE00E4E7CF /* ItemStore.swift */; };
 		5A889FBD1F1C9E1D001103F5 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A889FBC1F1C9E1D001103F5 /* ItemCell.swift */; };
 		5ADAE1F31F26139A008E4751 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE1F21F26139A008E4751 /* DetailViewController.swift */; };
+		5AE939871F27504E0088AEFA /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE939861F27504E0088AEFA /* MyTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		5A5FDC821F17E1DE00E4E7CF /* ItemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		5A889FBC1F1C9E1D001103F5 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		5ADAE1F21F26139A008E4751 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5AE939861F27504E0088AEFA /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				5A5FDC731F17D27100E4E7CF /* Assets.xcassets */,
 				5A5FDC751F17D27100E4E7CF /* LaunchScreen.storyboard */,
 				5A5FDC7E1F17D9E300E4E7CF /* ItemsViewController.swift */,
+				5AE939861F27504E0088AEFA /* MyTextField.swift */,
 				5A5FDC781F17D27100E4E7CF /* Info.plist */,
 			);
 			path = Homepwner;
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A5FDC811F17DB2400E4E7CF /* Item.swift in Sources */,
+				5AE939871F27504E0088AEFA /* MyTextField.swift in Sources */,
 				5A5FDC7F1F17D9E300E4E7CF /* ItemsViewController.swift in Sources */,
 				5A5FDC831F17E1DE00E4E7CF /* ItemStore.swift in Sources */,
 				5ADAE1F31F26139A008E4751 /* DetailViewController.swift in Sources */,

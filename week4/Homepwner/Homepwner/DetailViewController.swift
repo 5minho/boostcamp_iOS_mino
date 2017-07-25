@@ -10,9 +10,9 @@ import UIKit
 
 class DetailViewController : UIViewController {
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var serialNumberField: UITextField!
-    @IBOutlet weak var valueField: UITextField!
+    @IBOutlet weak var nameField: MyTextField!
+    @IBOutlet weak var serialNumberField: MyTextField!
+    @IBOutlet weak var valueField: MyTextField!
     @IBOutlet weak var dateLabel: UILabel!
     
     let numberFormatter : NumberFormatter = {
@@ -60,6 +60,7 @@ class DetailViewController : UIViewController {
             item.valueInDollars = 0
         }
     }
+    
     @IBAction func backgroungTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
