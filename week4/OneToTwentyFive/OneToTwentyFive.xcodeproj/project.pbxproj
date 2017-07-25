@@ -15,6 +15,7 @@
 		5AE16EEC1F22F73700A90106 /* OneToTwentyFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AE16EEA1F22F73700A90106 /* OneToTwentyFive.xcdatamodeld */; };
 		5AE16EEE1F22F73700A90106 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE16EED1F22F73700A90106 /* Assets.xcassets */; };
 		5AE16EFC1F22F73700A90106 /* OneToTwentyFiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE16EFB1F22F73700A90106 /* OneToTwentyFiveTests.swift */; };
+		5AE939851F270B790088AEFA /* RecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE939841F270B790088AEFA /* RecordList.swift */; };
 		5AF433201F25019100732417 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF4331F1F25019100732417 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		5AE16EF71F22F73700A90106 /* OneToTwentyFiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OneToTwentyFiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE16EFB1F22F73700A90106 /* OneToTwentyFiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneToTwentyFiveTests.swift; sourceTree = "<group>"; };
 		5AE16EFD1F22F73700A90106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AE939841F270B790088AEFA /* RecordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordList.swift; sourceTree = "<group>"; };
 		5AF4331F1F25019100732417 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 				5ADAE1F61F26A6AD008E4751 /* HistoryViewController.swift */,
 				5AE16EE51F22F73700A90106 /* PlayViewController.swift */,
 				5ADAE1F41F269156008E4751 /* Record.swift */,
+				5AE939841F270B790088AEFA /* RecordList.swift */,
 				5AE16EED1F22F73700A90106 /* Assets.xcassets */,
 				5AE16EF21F22F73700A90106 /* Info.plist */,
 				5AE16EEA1F22F73700A90106 /* OneToTwentyFive.xcdatamodeld */,
@@ -215,6 +218,7 @@
 				5ADAE1F71F26A6AD008E4751 /* HistoryViewController.swift in Sources */,
 				5AE16EEC1F22F73700A90106 /* OneToTwentyFive.xcdatamodeld in Sources */,
 				5AF433201F25019100732417 /* HomeViewController.swift in Sources */,
+				5AE939851F270B790088AEFA /* RecordList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

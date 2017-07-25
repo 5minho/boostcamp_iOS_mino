@@ -80,8 +80,9 @@ class PlayViewController: UIViewController {
     private var gameTimer : Timer!
     private var elapsedTime : Int = 0
     private let space : CGFloat = 8.0
-    private var recordList : [Record] = {
-        var recordList = [Record]()
+    
+    private var recordList : RecordList = {
+        var recordList = RecordList()
         return recordList
     }()
     
@@ -167,8 +168,9 @@ class PlayViewController: UIViewController {
             let record = Record(who: name, when: Date(), record: self.elapsedTime)
             self.elapsedTime = 0
             self.recordList.append(record)
-            self.recordList.sort(by: <)
-            self.currentTopRecord?.text = self.recordList[0].name + " " + self.recordList[0].elapsedTimeFormatted()
+            self.recordList.sort()
+            //수정 필요
+            self.currentTopRecord?.text = (self.recordList.first?.name)! + " " + (self.recordList.first?.elapsedTimeFormatted())!
             self.historyViewContreoller.recordList = self.recordList
         }
         

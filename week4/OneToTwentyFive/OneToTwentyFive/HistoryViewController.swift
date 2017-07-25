@@ -9,7 +9,7 @@
 import UIKit
 
 class HistoryViewController : UITableViewController {
-    open var recordList : [Record] = [Record]()
+    open var recordList : RecordList = RecordList()
     let cellId = "RecordCell"
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class HistoryViewController : UITableViewController {
             }
             return cell
         }()
-        let record = recordList[indexPath.row]
+        let record = recordList.index(at: indexPath.row)
         cell.textLabel?.text = record.elapsedTimeFormatted()
         cell.detailTextLabel?.text = record.name + " " + record.dateRecorded
         return cell
