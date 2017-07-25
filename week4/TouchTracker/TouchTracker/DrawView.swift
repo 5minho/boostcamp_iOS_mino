@@ -103,6 +103,7 @@ class DrawView : UIView {
                 currentLines.removeValue(forKey: key)
             }
         }
+        
         setNeedsDisplay()
     }
     

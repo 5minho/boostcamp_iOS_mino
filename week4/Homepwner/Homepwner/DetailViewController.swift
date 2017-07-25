@@ -60,6 +60,7 @@ class DetailViewController : UIViewController {
             item.valueInDollars = 0
         }
     }
+
     
     @IBAction func backgroungTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -70,5 +71,14 @@ extension DetailViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension DetailViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ChangeDate" {
+            let datePickerController = segue.destination as! DatePickerController
+            datePickerController.item = item
+        }
     }
 }
