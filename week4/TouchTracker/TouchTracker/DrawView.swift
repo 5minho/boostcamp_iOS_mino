@@ -9,8 +9,8 @@
 import UIKit
 
 struct Circle {
-    private var point1 : CGPoint = CGPoint.zero
-    private var point2 : CGPoint = CGPoint.zero
+    var point1 : CGPoint = CGPoint.zero
+    var point2 : CGPoint = CGPoint.zero
 }
 
 class DrawView : UIView {
