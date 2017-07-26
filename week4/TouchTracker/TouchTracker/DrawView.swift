@@ -9,16 +9,16 @@
 import UIKit
 
 struct Circle {
-    var point1 : CGPoint = CGPoint.zero
-    var point2 : CGPoint = CGPoint.zero
+    private var point1 : CGPoint = CGPoint.zero
+    private var point2 : CGPoint = CGPoint.zero
 }
 
 class DrawView : UIView {
-    var currentLines = [NSValue:Line]()
-    var finishedLines = [Line]()
+    private var currentLines = [NSValue:Line]()
+    private var finishedLines = [Line]()
     
-    var currentCircle = [NSValue : Circle]()
-    var finishedCircles = [Circle]()
+    private var currentCircle = [NSValue : Circle]()
+    private var finishedCircles = [Circle]()
     
     @IBInspectable var finishedLineColor: UIColor = UIColor.black {
         didSet {
