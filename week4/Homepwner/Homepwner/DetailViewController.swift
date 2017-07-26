@@ -15,6 +15,7 @@ class DetailViewController : UIViewController {
     @IBOutlet weak var valueField: MyTextField!
     @IBOutlet weak var dateLabel: UILabel!
     
+    // 접근수준 지정자 지정해보기
     let numberFormatter : NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
