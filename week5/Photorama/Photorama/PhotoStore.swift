@@ -21,7 +21,7 @@ class PhotoStore {
         let task = session.dataTask(with: request) { data, response, error  in
             if let jsonData = data {
                 if let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                    print(jsonString)
+//                    print(jsonString)
                 }
             } else if let requestError = error {
                 print("Error fetching recent photos: \(requestError)")
