@@ -41,12 +41,15 @@ class DetailViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         nameField.text = item.name
         serialNumberField.text = item.serialNumber
-//        valueField.text = "\(item.valueInDollars)"
-//        dateLabel.text = "\(item.dateCreated)"
         valueField.text = numberFormatter.string(from: NSNumber(value : item.valueInDollars))
         dateLabel.text = dateFormatter.string(from: item.dateCreated as Date)
+        
+        let key = item.itemKey
+        let imageToDisplay = imageStore.image(forKey: key)
+        imageView.image = imageToDisplay
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,9 +66,6 @@ class DetailViewController : UIViewController {
             item.valueInDollars = 0
         }
         
-        let key = item.itemKey
-        let imageToDisplay = imageStore.image(forKey: key)
-        imageView.image = imageToDisplay
     }
 
     
@@ -113,7 +113,7 @@ extension DetailViewController : UITextFieldDelegate {
 extension DetailViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {return}
-//        imageStore.set
+        imageStore.setImage(image: image, forKey: item.itemKey)
         imageView.image = image
         dismiss(animated: true, completion: nil)
     }
