@@ -15,6 +15,7 @@
 		5AA708121F2CEA98000822F8 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA708111F2CEA98000822F8 /* FlickrAPI.swift */; };
 		5AA708141F2CF086000822F8 /* PhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA708131F2CF086000822F8 /* PhotoStore.swift */; };
 		5AA7081C1F2CF41B000822F8 /* PhotoramaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA7081B1F2CF41B000822F8 /* PhotoramaTests.swift */; };
+		5AA708241F2CFF7B000822F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA708231F2CFF7B000822F8 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		5AA708191F2CF41B000822F8 /* PhotoramaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AA7081B1F2CF41B000822F8 /* PhotoramaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoramaTests.swift; sourceTree = "<group>"; };
 		5AA7081D1F2CF41B000822F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AA708231F2CFF7B000822F8 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				5AA707FD1F2CE4C9000822F8 /* AppDelegate.swift */,
+				5AA708231F2CFF7B000822F8 /* Photo.swift */,
 				5AA708011F2CE4C9000822F8 /* Main.storyboard */,
 				5AA7080F1F2CE4FB000822F8 /* PhotosViewController.swift */,
 				5AA708111F2CEA98000822F8 /* FlickrAPI.swift */,
@@ -211,6 +214,7 @@
 				5AA707FE1F2CE4C9000822F8 /* AppDelegate.swift in Sources */,
 				5AA708141F2CF086000822F8 /* PhotoStore.swift in Sources */,
 				5AA708101F2CE4FB000822F8 /* PhotosViewController.swift in Sources */,
+				5AA708241F2CFF7B000822F8 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
