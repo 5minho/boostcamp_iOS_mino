@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5A2825831F2E1EB100875BCD /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2825821F2E1EB100875BCD /* UserService.swift */; };
+		5AA5E3151F2F5E9800B4D0F8 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA5E3141F2F5E9800B4D0F8 /* Article.swift */; };
+		5AA5E3171F2F7D6F00B4D0F8 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA5E3161F2F7D6F00B4D0F8 /* ArticleTableViewCell.swift */; };
+		5AA5E3191F2F7DC500B4D0F8 /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA5E3181F2F7DC500B4D0F8 /* ArticleTableViewController.swift */; };
 		5AA708381F2DAD2D000822F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA708371F2DAD2D000822F8 /* AppDelegate.swift */; };
 		5AA7083A1F2DAD2D000822F8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA708391F2DAD2D000822F8 /* LoginViewController.swift */; };
 		5AA7083D1F2DAD2D000822F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AA7083B1F2DAD2D000822F8 /* Main.storyboard */; };
@@ -30,6 +33,9 @@
 
 /* Begin PBXFileReference section */
 		5A2825821F2E1EB100875BCD /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		5AA5E3141F2F5E9800B4D0F8 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		5AA5E3161F2F7D6F00B4D0F8 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		5AA5E3181F2F7DC500B4D0F8 /* ArticleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewController.swift; sourceTree = "<group>"; };
 		5AA708341F2DAD2D000822F8 /* ImageBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AA708371F2DAD2D000822F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AA708391F2DAD2D000822F8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -85,8 +91,11 @@
 			children = (
 				5AA708371F2DAD2D000822F8 /* AppDelegate.swift */,
 				5AA708391F2DAD2D000822F8 /* LoginViewController.swift */,
+				5AA5E3141F2F5E9800B4D0F8 /* Article.swift */,
+				5AA5E3161F2F7D6F00B4D0F8 /* ArticleTableViewCell.swift */,
 				5AA7084B1F2DB455000822F8 /* SignUpViewController.swift */,
 				5AA7083B1F2DAD2D000822F8 /* Main.storyboard */,
+				5AA5E3181F2F7DC500B4D0F8 /* ArticleTableViewController.swift */,
 				5AA708491F2DB1ED000822F8 /* ImageBoardAPI.swift */,
 				5AA7083E1F2DAD2D000822F8 /* Assets.xcassets */,
 				5AA708401F2DAD2D000822F8 /* LaunchScreen.storyboard */,
@@ -212,6 +221,9 @@
 			files = (
 				5AA7083A1F2DAD2D000822F8 /* LoginViewController.swift in Sources */,
 				5AA708381F2DAD2D000822F8 /* AppDelegate.swift in Sources */,
+				5AA5E3151F2F5E9800B4D0F8 /* Article.swift in Sources */,
+				5AA5E3171F2F7D6F00B4D0F8 /* ArticleTableViewCell.swift in Sources */,
+				5AA5E3191F2F7DC500B4D0F8 /* ArticleTableViewController.swift in Sources */,
 				5AA7084C1F2DB455000822F8 /* SignUpViewController.swift in Sources */,
 				5A2825831F2E1EB100875BCD /* UserService.swift in Sources */,
 				5AA7084A1F2DB1ED000822F8 /* ImageBoardAPI.swift in Sources */,

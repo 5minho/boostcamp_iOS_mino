@@ -60,4 +60,17 @@ class ImageBoardTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
  
+    func testFetchArticle() {
+        let expectation = self.expectation(description: "FetchArticleTest")
+        
+        UserService().fetchArticle { res, data in
+            print(res)
+//            let dataDic = try? JSONSerialization.data(withJSONObject: data, options: [])
+//            print(dataDic)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5)
+    }
 }

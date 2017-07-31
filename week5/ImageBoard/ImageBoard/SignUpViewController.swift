@@ -11,6 +11,7 @@ import UIKit
 //To do 1. alert하는 부분 모듈화
 //      2. 네트워크 통신 부분 모듈화
 //      3. pop하고 alert하는 코드 수정하기 (viewControllers[0] 부분도)
+
 class SignUpViewController : UIViewController {
     @IBOutlet weak var emailField: UITextField!
     
