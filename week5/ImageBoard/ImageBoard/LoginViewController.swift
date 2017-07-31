@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
         guard let email = emailField.text else { return  }
         guard let pw = pwField.text else { return }
         
-        UserService().requestLogin(email: email, password: pw) { response, data in
+        UserService.shared.requestLogin(email: email, password: pw) { response, data in
             DispatchQueue.main.async {
                 switch response  {
                 case .ok :
@@ -68,6 +68,7 @@ class LoginViewController: UIViewController {
         }
     }
 
+    
     func shouldInputAllItems() -> Bool {
         guard let email = emailField.text else { return false }
         guard let pw = pwField.text else { return false }

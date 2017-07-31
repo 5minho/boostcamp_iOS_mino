@@ -22,6 +22,12 @@ enum ImageError : Error {
 
 class UserService {
     
+    static let shared = UserService()
+    
+    private init() {
+        
+    }
+    
     enum SignUpResult : Int {
         case ok = 201
         case incorrect = 404
@@ -90,7 +96,7 @@ class UserService {
         return ImageBoardAPI.articles(from: jsonData)
     }
     
-    func fetchImageForArticle(article : Article, completion: @escaping (ImageResult) -> Void) {
+    func fetchThumbImageForArticle(article : Article, completion: @escaping (ImageResult) -> Void) {
         guard let url = ImageBoardAPI.resourceURL(for: article.thumbURL) else { return }
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
