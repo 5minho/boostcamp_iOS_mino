@@ -25,9 +25,13 @@ class ImageBoardTests: XCTestCase {
     func testSignUpUser() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results
-        let user = User(email: "user@user.com", password: "1234", nickName: "usernick")
-        user.signUp { 
-            print("alart!!!")
+        var completed = false
+        UserService().requestSignUp(email: "qweqwe", password: "123", nickName: "asdvd") {_,_ in
+            print("test complete")
+            completed = true
+        }
+        while(true){
+            if completed {break}
         }
     }
 
