@@ -11,14 +11,16 @@ import XCTest
 @testable import ImageBoard
 
 class ImageBoardTests: XCTestCase {
-    
+    var userService : UserService!
     override func setUp() {
         super.setUp()
+        userService = UserService()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        userService = nil
         super.tearDown()
     }
     
@@ -26,7 +28,7 @@ class ImageBoardTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results
         var completed = false
-        UserService().requestSignUp(email: "qweqwe", password: "123", nickName: "asdvd") {_,_ in
+        userService.requestSignUp(email: "qweqwe", password: "123", nickName: "asdvd") {_,_ in
             print("test complete")
             completed = true
         }
@@ -34,12 +36,22 @@ class ImageBoardTests: XCTestCase {
             if completed {break}
         }
     }
-
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-//    
+    
+    
+    func testLogin() {
+        userService.requestLogin(email: "test@test.com", password: "1234") { res in
+            print(res.statusCode)
+        }
+        userService.requestLogin(email: "123", password: "1234") { res in
+            print(res.statusCode)
+        }
+        userService.requestLogin(email: "", password: "1234") { res in
+            print(res.statusCode)
+        }
+        userService.requestLogin(email: "test@asdest.com", password: "1234") { res in
+            print(res.statusCode)
+        }
+        while(true) {}
+    }
+ 
 }
