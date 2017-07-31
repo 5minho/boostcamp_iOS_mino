@@ -46,7 +46,6 @@ class SignUpViewController : UIViewController {
         if  let email = emailField.text ,
             let nickName = nickNameField.text,
             let password = pwField.text {
-            
             let service = UserService()
             
             service.requestSignUp(email: email, password: nickName, nickName: password) { result, data in
@@ -57,12 +56,14 @@ class SignUpViewController : UIViewController {
                         loginViewControllerVC?.signUpSuccess = true
                         self.signUpSuccess = true
                         self.navigationController?.popViewController(animated: true)
+                
                     case .emailDuplication:
                         guard let data = data, let message = String(data: data, encoding: .utf8) else {return}
                         let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
                         let action = UIAlertAction(title: "확인", style: .default, handler: nil)
                         alert.addAction(action)
                         self.present(alert, animated: false, completion: nil)
+                        
                     case .incorrect :
                         print("incorrect")
                     }
@@ -70,6 +71,7 @@ class SignUpViewController : UIViewController {
             }
         }
     }
+
     
     func shouldInputAllItems() -> Bool {
         guard let email = emailField.text else { return false }

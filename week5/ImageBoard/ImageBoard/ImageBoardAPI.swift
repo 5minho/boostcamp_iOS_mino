@@ -15,4 +15,8 @@ struct ImageBoardAPI {
     static func signUpURL() -> URL? {
         return URL(string: baseURLString + "/user")
     }
+    
+    static func loginURL() -> URL? {
+        return URL(string: baseURLString + "/login")
+    }
 }

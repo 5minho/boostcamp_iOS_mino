@@ -39,19 +39,25 @@ class ImageBoardTests: XCTestCase {
     
     
     func testLogin() {
-        userService.requestLogin(email: "test@test.com", password: "1234") { res in
-            print(res.statusCode)
+        let expectation = self.expectation(description: "loginTest")
+        
+        userService.requestLogin(email: "123", password: "554") { res, data in
+            XCTAssert(res.rawValue == 401)
+            expectation.fulfill()
         }
-        userService.requestLogin(email: "123", password: "1234") { res in
-            print(res.statusCode)
+        userService.requestLogin(email: "123", password: "1234") { res, data in
+            XCTAssert(res.rawValue == 401)
+            expectation.fulfill()
         }
-        userService.requestLogin(email: "", password: "1234") { res in
-            print(res.statusCode)
+        userService.requestLogin(email: "", password: "1234") { res, data in
+            XCTAssert(res.rawValue == 401)
+            expectation.fulfill()
         }
-        userService.requestLogin(email: "test@asdest.com", password: "1234") { res in
-            print(res.statusCode)
+        userService.requestLogin(email: "test@asdest.com", password: "1234") { res, data in
+            XCTAssert(res.rawValue == 401)
+            expectation.fulfill()
         }
-        while(true) {}
+        wait(for: [expectation], timeout: 1)
     }
  
 }
