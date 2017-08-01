@@ -36,9 +36,10 @@ class AddArticleViewController : UIViewController {
         guard let imageData = UIImageJPEGRepresentation(image, 0.3) else { return }
         
         UserService.shared.post(title: title, desc: imageDesc, imageData: imageData) { postResult in
-            print(postResult)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
-        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -16,24 +16,18 @@ class ArticleTableViewController : UITableViewController {
         tableView.rowHeight = 100
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
-        
+
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
         } else {
             tableView.backgroundView = refreshControl
         }
         
-        UserService.shared.fetchArticles { (articleResult) in
-            DispatchQueue.main.async {
-                switch articleResult {
-                case let .success(articles) :
-                    self.articleList = articles.reversed()
-                case .failure(_) :
-                    self.articleList.removeAll()
-                }
-                self.tableView.reloadData()
-            }
-        }
+        loadArticles()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadArticles()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +43,6 @@ class ArticleTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let article = articleList[indexPath.row]
-        
         UserService.shared.fetchImageForArticle(article: article, size: .thumbnail) { result in
             DispatchQueue.main.async {
                 let articleIndex = self.articleList.index(of: article)!
@@ -72,6 +65,11 @@ class ArticleTableViewController : UITableViewController {
     
     func refresh(sender:AnyObject)
     {
+        loadArticles()
+        self.refreshControl?.endRefreshing()
+    }
+    
+    func loadArticles() {
         UserService.shared.fetchArticles { (articleResult) in
             DispatchQueue.main.async {
                 switch articleResult {
@@ -80,10 +78,8 @@ class ArticleTableViewController : UITableViewController {
                 case .failure(_) :
                     self.articleList.removeAll()
                 }
-                self.tableView.reloadData()
             }
+            self.tableView.reloadData()
         }
-        self.refreshControl?.endRefreshing()
     }
-
 }
