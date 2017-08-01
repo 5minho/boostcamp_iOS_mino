@@ -14,13 +14,17 @@ class ArticleTableViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 100
-        let userService = UserService()
-        userService.fetchArticles { (articleResult) in
+        
+        navigationController?.navigationItem.hidesBackButton = true
+        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
+        
+        UserService.shared.fetchArticles { (articleResult) in
             DispatchQueue.main.async {
                 switch articleResult {
                 case let .success(articles) :
                     self.articleList = articles
-                case let .failure(_) :
+                case .failure(_) :
                     self.articleList.removeAll()
                 }
                 self.tableView.reloadData()
@@ -42,8 +46,7 @@ class ArticleTableViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let article = articleList[indexPath.row]
         
-        let userService = UserService()
-        userService.fetchImageForArticle(article: article) { result in
+        UserService.shared.fetchImageForArticle(article: article, size: .thumbnail) { result in
             DispatchQueue.main.async {
                 let articleIndex = self.articleList.index(of: article)!
                 let articleIndexPath = IndexPath(row: articleIndex, section: 0)
@@ -51,6 +54,15 @@ class ArticleTableViewController : UITableViewController {
                 if let cell = tableView.cellForRow(at: articleIndexPath) as? ArticleTableViewCell {
                     cell.update(with: article)
                 }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                let destination = segue.destination as! DetailArticleViewController
+                destination.article = articleList[selectedIndexPath.row]
             }
         }
     }

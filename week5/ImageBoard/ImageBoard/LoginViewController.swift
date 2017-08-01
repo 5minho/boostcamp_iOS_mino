@@ -54,8 +54,8 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response  {
                 case .ok :
-                    guard let tabBarContoller = self.storyboard?.instantiateViewController(withIdentifier: "TabbarController") as? UITabBarController else { return }
-                    self.navigationController?.pushViewController(tabBarContoller, animated: true)
+                    guard let boardNavigation = self.storyboard?.instantiateViewController(withIdentifier: "BoardNavigation") as? UINavigationController else {return}
+                    self.present(boardNavigation, animated: true, completion: nil)
                     
                 case .unauthorized :
                     guard let data = data, let message = String(data: data, encoding: .utf8) else {return}

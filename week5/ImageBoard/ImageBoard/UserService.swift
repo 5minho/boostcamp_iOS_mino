@@ -20,6 +20,11 @@ enum ImageError : Error {
     case ImageCreationError
 }
 
+enum ImageSize {
+    case thumbnail
+    case detail
+}
+
 class UserService {
     
     static let shared = UserService()
@@ -96,8 +101,14 @@ class UserService {
         return ImageBoardAPI.articles(from: jsonData)
     }
     
-    func fetchThumbImageForArticle(article : Article, completion: @escaping (ImageResult) -> Void) {
-        guard let url = ImageBoardAPI.resourceURL(for: article.thumbURL) else { return }
+    func fetchImageForArticle(article : Article, size : ImageSize, completion: @escaping (ImageResult) -> Void) {
+        var url : URL
+        switch size {
+        case .thumbnail:
+            url = ImageBoardAPI.resourceURL(for: article.thumbURL)!
+        case .detail:
+            url = ImageBoardAPI.resourceURL(for: article.imageURL)!
+        }
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             let result = self.processImageRequest(data: data, error: error)
@@ -108,6 +119,7 @@ class UserService {
         }
         task.resume()
     }
+    
     
     func processImageRequest(data: Data?, error: Error?) -> ImageResult {
         guard let imageData = data,
