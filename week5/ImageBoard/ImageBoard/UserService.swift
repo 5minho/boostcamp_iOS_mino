@@ -62,7 +62,7 @@ class UserService {
                  completion : @escaping (SignUpResult, Data?) -> Void ) {
         guard let url = ImageBoardAPI.signUpURL() else { return }
         var request = URLRequest(url: url)
-        let param = ["email" : email, "password" : password, "nickName" : nickName]
+        let param = ["email" : email, "password" : password, "nickname" : nickName]
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -125,14 +125,10 @@ class UserService {
                                 filename: "article.jpg")
         
         let task = loginSession?.dataTask(with: request) { data, response, error in
-            print(String(data: data!, encoding : .utf8))
-            
             if let httpResponse = response as? HTTPURLResponse {
                 print(httpResponse.statusCode)
                 if httpResponse.statusCode == 201 {
                     completion(.success)
-                } else {
-//                    completion(.failure(error!))
                 }
             }
         }
