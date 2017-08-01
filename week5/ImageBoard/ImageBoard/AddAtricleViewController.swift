@@ -38,6 +38,7 @@ class AddArticleViewController : UIViewController {
         UserService.shared.post(title: title, desc: imageDesc, imageData: imageData) { postResult in
             print(postResult)
         }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
