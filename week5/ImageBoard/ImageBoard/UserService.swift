@@ -46,6 +46,7 @@ extension NSMutableData {
 class UserService {
     
     static let shared = UserService()
+    var loginSession : URLSession? = nil
     
     private init() {}
     
@@ -87,7 +88,11 @@ class UserService {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONSerialization.data(withJSONObject: param, options: [])
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        
+        loginSession = URLSession(configuration: .default)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let task = loginSession?.dataTask(with: request) { data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
                 guard let userData = data else { return }
                 let user = ImageBoardAPI.user(from: userData)
@@ -98,7 +103,8 @@ class UserService {
                 }
             }
         }
-        task.resume()
+        appDelegate?.loginSession = loginSession
+        task?.resume()
     }
     
     func post(title : String,
@@ -115,19 +121,22 @@ class UserService {
         request.httpBody = createBody(parameters: param,
                                 boundary: boundary,
                                 data: imageData,
-                                mimeType: "image/jpg",
+                                mimeType: "image/jpeg",
                                 filename: "article.jpg")
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = loginSession?.dataTask(with: request) { data, response, error in
+            print(String(data: data!, encoding : .utf8))
+            
             if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
                 if httpResponse.statusCode == 201 {
                     completion(.success)
                 } else {
-                    completion(.failure(error!))
+//                    completion(.failure(error!))
                 }
             }
         }
-        task.resume()
+        task?.resume()
     }
     
     func createBody(parameters: [String: String],
@@ -147,7 +156,7 @@ class UserService {
         }
         
         body.appendString(boundaryPrefix)
-        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Disposition: form-data; name=\"image_data\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
         body.append(data)
         body.appendString("\r\n")

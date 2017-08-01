@@ -18,7 +18,6 @@ class AddArticleViewController : UIViewController {
     }
 
     @IBAction func setPhotoFromLibrary(_ sender: UITapGestureRecognizer) {
-        
         titleField.resignFirstResponder()
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
@@ -34,7 +33,7 @@ class AddArticleViewController : UIViewController {
         guard let title = titleField.text else {return}
         guard let imageDesc = imageDescription.text else {return}
         guard let image = imageView.image else {return}
-        guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return }
+        guard let imageData = UIImageJPEGRepresentation(image, 0.3) else { return }
         
         UserService.shared.post(title: title, desc: imageDesc, imageData: imageData) { postResult in
             print(postResult)

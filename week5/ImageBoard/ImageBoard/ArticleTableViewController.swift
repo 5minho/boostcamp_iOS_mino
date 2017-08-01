@@ -15,8 +15,6 @@ class ArticleTableViewController : UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 100
         
-        
-        
         self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         
         UserService.shared.fetchArticles { (articleResult) in
@@ -68,8 +66,17 @@ class ArticleTableViewController : UITableViewController {
     
     func refresh(sender:AnyObject)
     {
-
-        self.tableView.reloadData()
+        UserService.shared.fetchArticles { (articleResult) in
+            DispatchQueue.main.async {
+                switch articleResult {
+                case let .success(articles) :
+                    self.articleList = articles
+                case .failure(_) :
+                    self.articleList.removeAll()
+                }
+                self.tableView.reloadData()
+            }
+        }
         self.refreshControl?.endRefreshing()
     }
 

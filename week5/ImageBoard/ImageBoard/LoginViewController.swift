@@ -53,9 +53,7 @@ class LoginViewController: UIViewController {
         UserService.shared.login(email: email, password: pw) { loginResult in
             DispatchQueue.main.async {
                 switch loginResult  {
-                case let .success(user) :
-                    UserDefaults.standard.set(true, forKey: "isLogin")
-                    UserDefaults.standard.set(user.id, forKey: "user")
+                case let .success(_) :
                     self.dismiss(animated: true, completion: nil)
                     
                 case let .failure(code, message) :

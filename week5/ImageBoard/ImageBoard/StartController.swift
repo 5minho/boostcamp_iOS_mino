@@ -11,8 +11,9 @@ import UIKit
 class StartContoller : UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !UserDefaults.standard.bool(forKey:"isLogin") {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.loginSession == nil {
             self.performSegue(withIdentifier: "LoginSegue", sender: nil)
-        }
+        } 
     }
 }

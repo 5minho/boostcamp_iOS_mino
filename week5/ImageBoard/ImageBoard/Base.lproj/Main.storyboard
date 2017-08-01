@@ -257,16 +257,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPj-S6-DQn">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zPj-S6-DQn">
                                 <rect key="frame" x="0.0" y="64" width="375" height="287"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zPj-S6-DQn" secondAttribute="height" multiplier="375:287" id="I3R-1N-Nj2"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="APb-3M-dAs" appends="YES" id="NgK-Tj-Y4V"/>
                                 </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zPj-S6-DQn" firstAttribute="leading" secondItem="BNj-qJ-f8d" secondAttribute="leading" id="47a-na-xU4"/>
+                            <constraint firstAttribute="trailing" secondItem="zPj-S6-DQn" secondAttribute="trailing" id="mtl-Gx-XOa"/>
+                            <constraint firstItem="zPj-S6-DQn" firstAttribute="top" secondItem="7JG-ST-vDg" secondAttribute="bottom" id="xxa-a4-bHt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GW0-Ng-eqh">
                         <nil key="title"/>
