@@ -14,14 +14,20 @@ class ArticleTableViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 100
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         
-        self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.backgroundView = refreshControl
+        }
         
         UserService.shared.fetchArticles { (articleResult) in
             DispatchQueue.main.async {
                 switch articleResult {
                 case let .success(articles) :
-                    self.articleList = articles
+                    self.articleList = articles.reversed()
                 case .failure(_) :
                     self.articleList.removeAll()
                 }
@@ -70,7 +76,7 @@ class ArticleTableViewController : UITableViewController {
             DispatchQueue.main.async {
                 switch articleResult {
                 case let .success(articles) :
-                    self.articleList = articles
+                    self.articleList = articles.reversed()
                 case .failure(_) :
                     self.articleList.removeAll()
                 }
