@@ -53,9 +53,8 @@ class LoginViewController: UIViewController {
         UserService.shared.login(email: email, password: pw) { loginResult in
             DispatchQueue.main.async {
                 switch loginResult  {
-                case let .success(_) :
+                case .success(_) :
                     self.dismiss(animated: true, completion: nil)
-                    
                 case let .failure(code, message) :
                     let alert = UIAlertController(title: "알림", message: "\(code)\n" + message, preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default, handler: nil)

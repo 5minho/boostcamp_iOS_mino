@@ -98,6 +98,7 @@ class UserService {
                 let user = ImageBoardAPI.user(from: userData)
                 if user != nil {
                     completion(.success(user!))
+                    appDelegate?.loginUesr = user
                 } else {
                     completion(.failure(httpResponse.statusCode, "Message : unauthorized"))
                 }
@@ -126,7 +127,6 @@ class UserService {
         
         let task = loginSession?.dataTask(with: request) { data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
-                print(httpResponse.statusCode)
                 if httpResponse.statusCode == 201 {
                     completion(.success)
                 }

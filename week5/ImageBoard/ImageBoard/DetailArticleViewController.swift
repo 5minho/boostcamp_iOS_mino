@@ -18,9 +18,11 @@ class DetailArticleViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let user = UserDefaults.standard.object(forKey: "user") as? User
-        if user?.id == article.authorId {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.loginUesr?.id == article.authorId {
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+            let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+            self.navigationItem.setRightBarButtonItems([editButton, deleteButton], animated: false)
         }
         
         UserService.shared.fetchImageForArticle(article: article, size: .detail) { result in
@@ -37,7 +39,6 @@ class DetailArticleViewController : UIViewController {
         dateCreated.text = article.dateCreated
         imageDescription.text = article.imageDescription
     }
-    
-    
+
     
 }
