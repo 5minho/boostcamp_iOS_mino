@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ArticleEditDelegate {
+    func detailViewController(_: DetailArticleViewController, didDeleteArticle article: Article)
+    //func detailViewController(_: DetailArticleViewController, didUpdateArticle article: Article)
+}
+
 class ArticleTableViewController : UITableViewController {
     fileprivate var articleList = [Article]()
     
@@ -58,6 +63,7 @@ class ArticleTableViewController : UITableViewController {
         if segue.identifier == "DetailSegue" {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 let destination = segue.destination as! DetailArticleViewController
+                destination.delegate = self
                 destination.article = articleList[selectedIndexPath.row]
             }
         }
@@ -81,5 +87,14 @@ class ArticleTableViewController : UITableViewController {
             }
             self.tableView.reloadData()
         }
+    }
+}
+
+extension ArticleTableViewController : ArticleEditDelegate {
+    func detailViewController(_: DetailArticleViewController, didDeleteArticle article: Article) {
+        guard let index = articleList.index(of: article) else { return }
+        articleList.remove(at: index)
+        let indexPath = IndexPath(row: index, section: 0)
+        self.tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }

@@ -8,15 +8,6 @@
 
 import Foundation
 
-enum ArticleResult {
-    case success([Article])
-    case failure(Error)
-}
-
-enum ImageBoardError : Error {
-    case invalidJSONData
-}
-
 
 struct ImageBoardAPI {
     private static let baseURLString = "https://ios-api.boostcamp.connect.or.kr"
@@ -43,8 +34,12 @@ struct ImageBoardAPI {
         return URL(string: baseURLString + stringURL)
     }
     
-    static func postImageURL() -> URL? {
+    static func postArticleURL() -> URL? {
         return URL(string: baseURLString + "/image")
+    }
+    
+    static func deleteArticleURL(id : String) -> URL? {
+        return URL(string: baseURLString + "/image/" + id)
     }
     
     static func user(from data : Data) -> User? {

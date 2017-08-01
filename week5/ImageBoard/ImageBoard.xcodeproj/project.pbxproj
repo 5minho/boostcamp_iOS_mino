@@ -23,6 +23,7 @@
 		5ACD2B3A1F303B7400BFB7FC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACD2B391F303B7400BFB7FC /* User.swift */; };
 		5ACD2B3E1F305F3E00BFB7FC /* AddAtricleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACD2B3D1F305F3E00BFB7FC /* AddAtricleViewController.swift */; };
 		5ACD2B401F30669800BFB7FC /* StartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACD2B3F1F30669800BFB7FC /* StartController.swift */; };
+		5ACD2B431F30A81500BFB7FC /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACD2B421F30A81500BFB7FC /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		5ACD2B391F303B7400BFB7FC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5ACD2B3D1F305F3E00BFB7FC /* AddAtricleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAtricleViewController.swift; sourceTree = "<group>"; };
 		5ACD2B3F1F30669800BFB7FC /* StartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartController.swift; sourceTree = "<group>"; };
+		5ACD2B421F30A81500BFB7FC /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		5AA7082B1F2DAD2D000822F8 = {
 			isa = PBXGroup;
 			children = (
+				5ACD2B411F30A7FE00BFB7FC /* enum */,
 				5AA708361F2DAD2D000822F8 /* ImageBoard */,
 				5AA708521F2DB80B000822F8 /* ImageBoardTests */,
 				5AA708351F2DAD2D000822F8 /* Products */,
@@ -124,6 +127,14 @@
 				5AA708551F2DB80B000822F8 /* Info.plist */,
 			);
 			path = ImageBoardTests;
+			sourceTree = "<group>";
+		};
+		5ACD2B411F30A7FE00BFB7FC /* enum */ = {
+			isa = PBXGroup;
+			children = (
+				5ACD2B421F30A81500BFB7FC /* Enums.swift */,
+			);
+			name = enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +253,7 @@
 				5A2825831F2E1EB100875BCD /* UserService.swift in Sources */,
 				5ACD2B3A1F303B7400BFB7FC /* User.swift in Sources */,
 				5ACD2B3E1F305F3E00BFB7FC /* AddAtricleViewController.swift in Sources */,
+				5ACD2B431F30A81500BFB7FC /* Enums.swift in Sources */,
 				5AA7084A1F2DB1ED000822F8 /* ImageBoardAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

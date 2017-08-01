@@ -13,6 +13,11 @@ enum ImageResult {
     case failure(Error)
 }
 
+enum DeleteResult {
+    case success
+    case failure
+}
+
 enum LoginResult {
     case success(User)
     case failure(Int, String)

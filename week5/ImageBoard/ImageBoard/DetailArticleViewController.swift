@@ -15,15 +15,19 @@ class DetailArticleViewController : UIViewController {
     @IBOutlet weak var imageDescription: UILabel!
     
     var article : Article!
+    var delegate : ArticleEditDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
         if appDelegate?.loginUesr?.id == article.authorId {
-            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-            let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
-            self.navigationItem.setRightBarButtonItems([editButton, deleteButton], animated: false)
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit(_:)))
+            let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trash(_:)))
+            self.navigationItem.setRightBarButtonItems([deleteButton, editButton], animated: false)
         }
+        
+        navigationItem.title = article.imageTitle
         
         UserService.shared.fetchImageForArticle(article: article, size: .detail) { result in
             switch result {
@@ -40,5 +44,30 @@ class DetailArticleViewController : UIViewController {
         imageDescription.text = article.imageDescription
     }
 
+    func edit(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    func trash(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "삭제", message: "정말 삭제하시겠습니까?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "예", style: .default) { _ in
+            UserService.shared.deleteArticle(id: self.article.id) { [unowned self] result in
+                switch result {
+                case .success :
+                    DispatchQueue.main.async {
+                        self.delegate?.detailViewController(self, didDeleteArticle: self.article)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure :
+                    print("삭제 실패")
+                }
+            }
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
     
 }
