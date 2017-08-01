@@ -52,6 +52,8 @@ class SignUpViewController : UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .ok :
+                        // viewControllers[0] 보다는 viewControllers.first 사용하기
+                        // 빈 Array일 때 viewControllers[0]은 크래쉬가 날 수 있습니다.
                         let loginViewControllerVC = self.navigationController?.viewControllers[0] as? LoginViewController
                         loginViewControllerVC?.signUpSuccess = true
                         self.signUpSuccess = true

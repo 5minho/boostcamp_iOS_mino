@@ -19,6 +19,9 @@ class AddArticleViewController : UIViewController {
 
     @IBAction func setPhotoFromLibrary(_ sender: UITapGestureRecognizer) {
         
+        // 메서드 이름은 setPhotoFromLibray 인데, 텍스트 필트를 resign 시키는 기능이 들어있는 것은
+        // 차후에 예상치 못한 동작들을 유발할 가능성이 있어 보입니다.
+        // 예제라 크게 문제 없겠지만, 실전이라면 나중에 나 또는 다른사람이 내 코드를 운용할 때 문제가 발생할 여지가 있습니다.
         titleField.resignFirstResponder()
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
