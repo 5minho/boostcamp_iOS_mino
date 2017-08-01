@@ -15,9 +15,9 @@ class ArticleTableViewController : UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 100
         
-        navigationController?.navigationItem.hidesBackButton = true
-        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: nil)
+        
+        
+        self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         
         UserService.shared.fetchArticles { (articleResult) in
             DispatchQueue.main.async {
@@ -50,7 +50,6 @@ class ArticleTableViewController : UITableViewController {
             DispatchQueue.main.async {
                 let articleIndex = self.articleList.index(of: article)!
                 let articleIndexPath = IndexPath(row: articleIndex, section: 0)
-                
                 if let cell = tableView.cellForRow(at: articleIndexPath) as? ArticleTableViewCell {
                     cell.update(with: article)
                 }
@@ -65,6 +64,13 @@ class ArticleTableViewController : UITableViewController {
                 destination.article = articleList[selectedIndexPath.row]
             }
         }
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
 
 }

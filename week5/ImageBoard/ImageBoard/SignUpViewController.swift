@@ -48,7 +48,7 @@ class SignUpViewController : UIViewController {
             let nickName = nickNameField.text,
             let password = pwField.text {
             
-            UserService.shared.requestSignUp(email: email, password: nickName, nickName: password) { result, data in
+            UserService.shared.signUp(email: email, password: nickName, nickName: password) { result, data in
                 DispatchQueue.main.async {
                     switch result {
                     case .ok :

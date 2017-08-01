@@ -18,6 +18,10 @@ class DetailArticleViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let user = UserDefaults.standard.object(forKey: "user") as? User
+        if user?.id == article.authorId {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        }
         
         UserService.shared.fetchImageForArticle(article: article, size: .detail) { result in
             switch result {
@@ -33,5 +37,7 @@ class DetailArticleViewController : UIViewController {
         dateCreated.text = article.dateCreated
         imageDescription.text = article.imageDescription
     }
+    
+    
     
 }

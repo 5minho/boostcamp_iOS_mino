@@ -14,13 +14,11 @@ class ImageBoardTests: XCTestCase {
     var userService : UserService!
     override func setUp() {
         super.setUp()
-        userService = UserService()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        userService = nil
         super.tearDown()
     }
     
@@ -38,31 +36,31 @@ class ImageBoardTests: XCTestCase {
     }
     
     
-    func testLogin() {
-        let expectation = self.expectation(description: "loginTest")
-        
-        userService.requestLogin(email: "123", password: "554") { res, data in
-            XCTAssert(res.rawValue == 401)
-            expectation.fulfill()
-        }
-        userService.requestLogin(email: "123", password: "1234") { res, data in
-            XCTAssert(res.rawValue == 401)
-            expectation.fulfill()
-        }
-        userService.requestLogin(email: "", password: "1234") { res, data in
-            XCTAssert(res.rawValue == 401)
-            expectation.fulfill()
-        }
-        userService.requestLogin(email: "test@asdest.com", password: "1234") { res, data in
-            XCTAssert(res.rawValue == 401)
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 1)
-    }
- 
-    func testFetchArticle() {
-        let expectation = self.expectation(description: "FetchArticleTest")
-        
-
-    }
+//    func testLogin() {
+//        let expectation = self.expectation(description: "loginTest")
+//        
+//        userService.requestLogin(email: "123", password: "554") { res, data in
+//            XCTAssert(res.rawValue == 401)
+//            expectation.fulfill()
+//        }
+//        userService.requestLogin(email: "123", password: "1234") { res, data in
+//            XCTAssert(res.rawValue == 401)
+//            expectation.fulfill()
+//        }
+//        userService.requestLogin(email: "", password: "1234") { res, data in
+//            XCTAssert(res.rawValue == 401)
+//            expectation.fulfill()
+//        }
+//        userService.requestLogin(email: "test@asdest.com", password: "1234") { res, data in
+//            XCTAssert(res.rawValue == 401)
+//            expectation.fulfill()
+//        }
+//        wait(for: [expectation], timeout: 1)
+//    }
+// 
+//    func testFetchArticle() {
+//        let expectation = self.expectation(description: "FetchArticleTest")
+//        
+//
+//    }
 }

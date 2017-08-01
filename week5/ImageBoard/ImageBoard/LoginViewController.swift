@@ -50,16 +50,16 @@ class LoginViewController: UIViewController {
         guard let email = emailField.text else { return  }
         guard let pw = pwField.text else { return }
         
-        UserService.shared.requestLogin(email: email, password: pw) { response, data in
+        UserService.shared.login(email: email, password: pw) { loginResult in
             DispatchQueue.main.async {
-                switch response  {
-                case .ok :
-                    guard let boardNavigation = self.storyboard?.instantiateViewController(withIdentifier: "BoardNavigation") as? UINavigationController else {return}
-                    self.present(boardNavigation, animated: true, completion: nil)
+                switch loginResult  {
+                case let .success(user) :
+                    UserDefaults.standard.set(true, forKey: "isLogin")
+                    UserDefaults.standard.set(user.id, forKey: "user")
+                    self.dismiss(animated: true, completion: nil)
                     
-                case .unauthorized :
-                    guard let data = data, let message = String(data: data, encoding: .utf8) else {return}
-                    let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+                case let .failure(code, message) :
+                    let alert = UIAlertController(title: "알림", message: "\(code)\n" + message, preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default, handler: nil)
                     alert.addAction(action)
                     self.present(alert, animated: false, completion: nil)

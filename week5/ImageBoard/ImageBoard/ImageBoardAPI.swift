@@ -43,6 +43,20 @@ struct ImageBoardAPI {
         return URL(string: baseURLString + stringURL)
     }
     
+    static func postImageURL() -> URL? {
+        return URL(string: baseURLString + "/image")
+    }
+    
+    static func user(from data : Data) -> User? {
+        let jsonObject = try? JSONSerialization.jsonObject(with: data, options: [])
+        guard let userData = jsonObject as? [String : AnyObject] else { return nil }
+        guard let id = userData["_id"] as? String,
+            let email = userData["email"] as? String else{
+                return nil
+        }
+        return User(id: id, email: email)
+    }
+    
     static func articles(from jsonData: Data) -> ArticleResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
