@@ -32,11 +32,49 @@ class QuizTests: XCTestCase {
         signUpVC?.pwField.text = "abc"
         signUpVC?.pwCheckField.text = "abc"
         
+        XCTAssertFalse((signUpVC?.shouldInputAllItems())!)
+        
+        signUpVC?.emailField.text = "d"
+        signUpVC?.nickNameField.text = "d"
+        signUpVC?.pwField.text = "abc"
+        signUpVC?.pwCheckField.text = "abc"
+        
         XCTAssert((signUpVC?.shouldInputAllItems())!)
+        
+        signUpVC?.emailField.text = ""
+        signUpVC?.nickNameField.text = "abc"
+        signUpVC?.pwField.text = ""
+        signUpVC?.pwCheckField.text = "abc"
+        
+        XCTAssertFalse((signUpVC?.shouldInputAllItems())!)
+        
+        signUpVC?.nickNameField.text = "abc"
+        signUpVC?.pwField.text = "abc"
+        signUpVC?.pwCheckField.text = "abc"
+        
+        XCTAssertFalse((signUpVC?.shouldInputAllItems())!)
+        
+        
     }
     
     func testShouldCheckPassword() {
         let _ = signUpVC?.view
+        signUpVC?.pwField.text = ""
+        signUpVC?.pwCheckField.text = ""
+        XCTAssertFalse((signUpVC?.shouldCheckPassword())!)
+        
+        signUpVC?.pwField.text = ""
+        signUpVC?.pwCheckField.text = "123"
+        XCTAssertFalse((signUpVC?.shouldCheckPassword())!)
+        
+        signUpVC?.pwField.text = "123"
+        signUpVC?.pwCheckField.text = ""
+        XCTAssertFalse((signUpVC?.shouldCheckPassword())!)
+        
+        signUpVC?.pwField.text = "123"
+        signUpVC?.pwCheckField.text = "123123"
+        XCTAssertFalse((signUpVC?.shouldCheckPassword())!)
+        
         signUpVC?.pwField.text = "123"
         signUpVC?.pwCheckField.text = "123"
         XCTAssert((signUpVC?.shouldCheckPassword())!)
@@ -50,34 +88,32 @@ class QuizTests: XCTestCase {
     }
     
     func testSignUpAPI() {
-        let promise = expectation(description: "sign up result : success")
+        let successExcpectation = expectation(description: "sign up result : success")
+        let failureExcpectation = expectation(description: "sign up result : failure")
         
-        signUpVC?.signUpAPI(email: "aaaweqwe",
+        signUpVC?.signUpAPI(email: "qqqw1123s",
                             password: "1234",
                             nickName: "ddd") { result in
                                 switch result {
                                 case .success :
-                                    promise.fulfill()
-                                case .failure :
-                                    XCTFail("SignUp Fail")
+                                    successExcpectation.fulfill()
+                                case let .failure(httpResponse) :
+                                    XCTFail("SignUp Fail, status Code : \(httpResponse.statusCode)")
                                 }
         }
         
-        wait(for: [promise], timeout: 5)
-    }
-    
-    func testSingUp() {
-        let _ = signUpVC?.view
-        XCTAssertEqual(signUpVC?.resultLabel.text, "success")
-    }
-    
-   
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        signUpVC?.signUpAPI(email: "test@test.com",
+                            password: "1234",
+                            nickName: "ddd") { result in
+                                switch result {
+                                case .success :
+                                    XCTFail("SignUp Success")
+                                case .failure :
+                                    failureExcpectation.fulfill()
+                                }
         }
+
+        wait(for: [successExcpectation,failureExcpectation], timeout: 5)
     }
     
 }

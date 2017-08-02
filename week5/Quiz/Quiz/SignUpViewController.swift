@@ -10,7 +10,7 @@ import UIKit
 
 enum SignUpResult {
     case success
-    case failure
+    case failure(HTTPURLResponse)
 }
 
 class SignUpViewController : UIViewController {
@@ -42,8 +42,8 @@ class SignUpViewController : UIViewController {
                 switch result {
                 case .success :
                     self.resultLabel.text = "success"
-                case .failure:
-                    self.resultLabel.text = "failure"
+                case let .failure(httpResponse):
+                    self.resultLabel.text = "failure \(httpResponse.statusCode)"
                 }
             }
         }
@@ -84,7 +84,7 @@ class SignUpViewController : UIViewController {
                 completion(.success)
                 return
             }
-            completion(.failure)
+            completion(.failure(httpResponse))
         }
         task.resume()
     }
